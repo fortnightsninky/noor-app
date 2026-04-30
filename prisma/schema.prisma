@@ -1,0 +1,226 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String         @id @default(cuid())
+  name            String
+  email           String         @unique
+  emailVerified   Boolean        @default(false)
+  password        String?
+  image           String?
+  role            Role           @default(BUYER)
+  createdAt       DateTime       @default(now())
+  orders          Order[]
+  listings        Listing[]
+  reviews         Review[]
+  messages        Message[]
+  notifications   Notification[]
+  wishlist        Wishlist[]
+  following       Follow[]       @relation("follower")
+  followers       Follow[]       @relation("following")
+  reports         Report[]       @relation("reporter")
+  reportsAgainst  Report[]       @relation("reported")
+  sellerProfile   SellerProfile?
+}
+
+model SellerProfile {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id])
+  bio             String?
+  stripeAccountId String?
+  taxId           String?
+  totalSales      Int      @default(0)
+  lifetimeGMV     Float    @default(0)
+  rating          Float    @default(0)
+  responseRate    Float    @default(0)
+  onVacation      Boolean  @default(false)
+  createdAt       DateTime @default(now())
+}
+
+model Listing {
+  id           String        @id @default(cuid())
+  sellerId     String
+  seller       User          @relation(fields: [sellerId], references: [id])
+  title        String
+  description  String
+  price        Float
+  shippingCost Float
+  category     String
+  subcategory  String
+  condition    Condition
+  sizes        String[]
+  color        String?
+  fabric       String?
+  occasion     String?
+  brand        String?
+  images       String[]
+  video        String?
+  quantity     Int           @default(1)
+  status       ListingStatus @default(PENDING)
+  views        Int           @default(0)
+  createdAt    DateTime      @default(now())
+  orderItems   OrderItem[]
+  wishlist     Wishlist[]
+  reports      Report[]
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  buyerId         String
+  buyer           User        @relation(fields: [buyerId], references: [id])
+  items           OrderItem[]
+  total           Float
+  tax             Float       @default(0)
+  status          OrderStatus @default(PLACED)
+  shippingAddress Json
+  stripePaymentId String
+  trackingNumber  String?
+  payoutTriggered Boolean     @default(false)
+  deliveredAt     DateTime?
+  createdAt       DateTime    @default(now())
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  listingId String
+  listing   Listing @relation(fields: [listingId], references: [id])
+  quantity  Int
+  price     Float
+  size      String?
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  reviewerId String
+  reviewer   User     @relation(fields: [reviewerId], references: [id])
+  sellerId   String
+  listingId  String
+  orderId    String
+  rating     Int
+  comment    String?
+  createdAt  DateTime @default(now())
+}
+
+model Conversation {
+  id           String    @id @default(cuid())
+  participantA String
+  participantB String
+  messages     Message[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  senderId       String
+  sender         User         @relation(fields: [senderId], references: [id])
+  receiverId     String
+  content        String
+  image          String?
+  read           Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id])
+  type      NotificationType
+  message   String
+  link      String?
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+}
+
+model Wishlist {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  listingId String
+  listing   Listing  @relation(fields: [listingId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Follow {
+  id          String   @id @default(cuid())
+  followerId  String
+  follower    User     @relation("follower", fields: [followerId], references: [id])
+  followingId String
+  following   User     @relation("following", fields: [followingId], references: [id])
+  createdAt   DateTime @default(now())
+}
+
+model Report {
+  id         String       @id @default(cuid())
+  reporterId String
+  reporter   User         @relation("reporter", fields: [reporterId], references: [id])
+  reportedId String?
+  reported   User?        @relation("reported", fields: [reportedId], references: [id])
+  listingId  String?
+  listing    Listing?     @relation(fields: [listingId], references: [id])
+  reason     String
+  evidence   String?
+  status     ReportStatus @default(PENDING)
+  adminNote  String?
+  createdAt  DateTime     @default(now())
+}
+
+enum Role {
+  BUYER
+  SELLER
+  ADMIN
+}
+
+enum Condition {
+  NEW
+  LIKE_NEW
+  USED
+}
+
+enum ListingStatus {
+  PENDING
+  ACTIVE
+  PAUSED
+  SOLD
+  REJECTED
+}
+
+enum OrderStatus {
+  PLACED
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum NotificationType {
+  NEW_MESSAGE
+  ORDER_UPDATE
+  PAYOUT_SENT
+  LISTING_APPROVED
+  LISTING_REJECTED
+  REVIEW_RECEIVED
+  NEW_FOLLOWER
+  NEW_LISTING_FROM_FOLLOWED
+  DISPUTE_UPDATE
+}
+
+enum ReportStatus {
+  PENDING
+  REVIEWED_NO_ACTION
+  WARNING_ISSUED
+  SUSPENDED
+  BANNED
+}
