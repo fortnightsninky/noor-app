@@ -20,7 +20,7 @@ export default function Navbar() {
             <Link href="/browse" className="text-white hover:text-gold-light transition-colors font-sans">
               Shop
             </Link>
-            <Link href="/sell" className="text-white hover:text-gold-light transition-colors font-sans">
+            <Link href="/create-listing" className="text-white hover:text-gold-light transition-colors font-sans">
               Sell
             </Link>
             <Link href="/about" className="text-white hover:text-gold-light transition-colors font-sans">

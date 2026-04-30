@@ -71,3 +71,12 @@ h1, h2, h3, h4, h5, h6 {
 .gold-to-champagne {
   background: linear-gradient(135deg, var(--gold) 0%, var(--bg-light) 100%);
 }
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}

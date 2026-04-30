@@ -1,3 +1,5 @@
+"use client"
+
 import AnnouncementBar from '@/components/layout/AnnouncementBar'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -5,7 +7,7 @@ import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import Input from '@/components/ui/Input'
 import Badge from '@/components/ui/Badge'
-import { ShoppingCart, Truck, Shield, CreditCard, Apple, Google, MapPin, Plus } from 'lucide-react'
+import { ShoppingCart, Truck, Shield, CreditCard, Apple, MapPin, Plus } from 'lucide-react'
 import { useState } from 'react'
 
 export default function CheckoutPage() {
@@ -243,7 +245,9 @@ export default function CheckoutPage() {
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <Google className="h-5 w-5 text-text-dark" />
+                          <div className="h-5 w-5 bg-text-dark rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">G</span>
+                          </div>
                           <span className="font-sans font-medium text-text-dark">Google Pay</span>
                         </div>
                         {paymentMethod === 'google' && (

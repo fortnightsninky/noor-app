@@ -37,7 +37,7 @@ export default function Footer() {
             <h3 className="font-serif text-lg mb-4">For Sellers</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/sell" className="hover:text-gold transition-colors">
+                <Link href="/create-listing" className="hover:text-gold transition-colors">
                   Start Selling
                 </Link>
               </li>

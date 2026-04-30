@@ -1,3 +1,5 @@
+"use client"
+
 import AnnouncementBar from '@/components/layout/AnnouncementBar'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -5,7 +7,7 @@ import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import Badge from '@/components/ui/Badge'
 import ProductCard from '@/components/listing/ProductCard'
-import { TrendingUp, Package, DollarSign, Users, ShoppingBag, Settings, Upload, MoreVertical, Edit, Pause, Trash2, Copy, BarChart3, Vacation, CreditCard, Target } from 'lucide-react'
+import { TrendingUp, Package, DollarSign, Users, ShoppingBag, Settings, Upload, MoreVertical, Edit, Pause, Trash2, Copy, BarChart3, CreditCard, Target, Plus, Umbrella } from 'lucide-react'
 import { useState } from 'react'
 
 export default function SellerDashboard() {
@@ -14,10 +16,10 @@ export default function SellerDashboard() {
   const [vacationMode, setVacationMode] = useState(false)
 
   const stats = [
-    { label: "Today's Sales", value: '$342.50', change: '+12%', icon: DollarSign, color: 'gold' },
-    { label: 'Pending Orders', value: '8', change: '-2', icon: Package, color: 'blue' },
-    { label: 'Total Earnings', value: '$8,452.20', change: '+24%', icon: TrendingUp, color: 'green' },
-    { label: 'Active Listings', value: '42', change: '+5', icon: ShoppingBag, color: 'purple' }
+    { label: "Today's Sales", value: '$342.50', change: '+12%', icon: DollarSign, bgClass: 'bg-gold/10', textClass: 'text-gold' },
+    { label: 'Pending Orders', value: '8', change: '-2', icon: Package, bgClass: 'bg-blue-500/10', textClass: 'text-blue-500' },
+    { label: 'Total Earnings', value: '$8,452.20', change: '+24%', icon: TrendingUp, bgClass: 'bg-green-500/10', textClass: 'text-green-500' },
+    { label: 'Active Listings', value: '42', change: '+5', icon: ShoppingBag, bgClass: 'bg-purple-500/10', textClass: 'text-purple-500' }
   ]
 
   const orders = {
@@ -130,8 +132,8 @@ export default function SellerDashboard() {
             {stats.map((stat, index) => (
               <Card key={index} className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className={`p-3 bg-${stat.color}/10 rounded-md`}>
-                    <stat.icon className={`h-6 w-6 text-${stat.color}`} />
+                  <div className={`p-3 ${stat.bgClass} rounded-md`}>
+                    <stat.icon className={`h-6 w-6 ${stat.textClass}`} />
                   </div>
                   <span className={`text-sm font-sans ${stat.change.startsWith('+') ? 'text-green-500' : 'text-red-500'}`}>
                     {stat.change}
@@ -270,7 +272,7 @@ export default function SellerDashboard() {
                   <div className="pt-6 border-t border-border">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="font-serif text-lg text-text-dark flex items-center gap-2">
-                        <Vacation className="h-5 w-5" />
+                        <Umbrella className="h-5 w-5" />
                         Vacation Mode
                       </h3>
                       <button
