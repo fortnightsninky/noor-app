@@ -6,101 +6,19 @@ import Button from '@/components/ui/Button'
 import { Filter, ChevronDown } from 'lucide-react'
 
 const listings = [
-  {
-    id: '1',
-    title: 'Embroidered Moroccan Kaftan Dress',
-    price: 129.99,
-    shippingCost: 8.99,
-    images: ['/placeholder.jpg'],
-    condition: 'NEW' as const,
-    sellerName: 'ZahraDesigns',
-    category: 'Abayas'
-  },
-  {
-    id: '2',
-    title: 'Handwoven Silk Hijab Set',
-    price: 89.99,
-    shippingCost: 5.99,
-    images: ['/placeholder.jpg'],
-    condition: 'NEW' as const,
-    sellerName: 'SilkThreads',
-    category: 'Hijabs & Scarves'
-  },
-  {
-    id: '3',
-    title: 'Traditional Pakistani Shalwar Kameez',
-    price: 149.99,
-    shippingCost: 12.99,
-    images: ['/placeholder.jpg'],
-    condition: 'LIKE_NEW' as const,
-    sellerName: 'DesiVibes',
-    category: 'Shalwar Kameez'
-  },
-  {
-    id: '4',
-    title: 'Wedding Lehenga with Zari Work',
-    price: 349.99,
-    shippingCost: 25.99,
-    images: ['/placeholder.jpg'],
-    condition: 'NEW' as const,
-    sellerName: 'RoyalBridal',
-    category: 'Lehenga'
-  },
-  {
-    id: '5',
-    title: 'Silk Saree with Gold Border',
-    price: 199.99,
-    shippingCost: 15.99,
-    images: ['/placeholder.jpg'],
-    condition: 'LIKE_NEW' as const,
-    sellerName: 'SareeQueen',
-    category: 'Saree'
-  },
-  {
-    id: '6',
-    title: 'Men\'s Embroidered Kurta',
-    price: 79.99,
-    shippingCost: 7.99,
-    images: ['/placeholder.jpg'],
-    condition: 'NEW' as const,
-    sellerName: 'KurtaKing',
-    category: 'Kurta'
-  },
-  {
-    id: '7',
-    title: 'Kids Abaya Set',
-    price: 49.99,
-    shippingCost: 5.99,
-    images: ['/placeholder.jpg'],
-    condition: 'NEW' as const,
-    sellerName: 'LittleModesty',
-    category: 'Kids'
-  },
-  {
-    id: '8',
-    title: 'Prayer Dress Set',
-    price: 39.99,
-    shippingCost: 4.99,
-    images: ['/placeholder.jpg'],
-    condition: 'USED' as const,
-    sellerName: 'ModestLiving',
-    category: 'Abayas'
-  }
+  { id: '1', title: 'Embroidered Moroccan Kaftan Dress', price: 129.99, shippingCost: 8.99, images: ['/placeholder.jpg'], condition: 'NEW' as const, sellerName: 'ZahraDesigns', category: 'Abayas' },
+  { id: '2', title: 'Handwoven Silk Hijab Set', price: 89.99, shippingCost: 5.99, images: ['/placeholder.jpg'], condition: 'NEW' as const, sellerName: 'SilkThreads', category: 'Hijabs & Scarves' },
+  { id: '3', title: 'Traditional Pakistani Shalwar Kameez', price: 149.99, shippingCost: 12.99, images: ['/placeholder.jpg'], condition: 'LIKE_NEW' as const, sellerName: 'DesiVibes', category: 'Shalwar Kameez' },
+  { id: '4', title: 'Wedding Lehenga with Zari Work', price: 349.99, shippingCost: 25.99, images: ['/placeholder.jpg'], condition: 'NEW' as const, sellerName: 'RoyalBridal', category: 'Lehenga' },
+  { id: '5', title: 'Silk Saree with Gold Border', price: 199.99, shippingCost: 15.99, images: ['/placeholder.jpg'], condition: 'LIKE_NEW' as const, sellerName: 'SareeQueen', category: 'Saree' },
+  { id: '6', title: "Men's Embroidered Kurta", price: 79.99, shippingCost: 7.99, images: ['/placeholder.jpg'], condition: 'NEW' as const, sellerName: 'KurtaKing', category: 'Kurta' },
+  { id: '7', title: 'Kids Abaya Set', price: 49.99, shippingCost: 5.99, images: ['/placeholder.jpg'], condition: 'NEW' as const, sellerName: 'LittleModesty', category: 'Kids' },
+  { id: '8', title: 'Prayer Dress Set', price: 39.99, shippingCost: 4.99, images: ['/placeholder.jpg'], condition: 'USED' as const, sellerName: 'ModestLiving', category: 'Abayas' }
 ]
 
 const categories = [
-  'All Categories',
-  'Abayas',
-  'Hijabs & Scarves',
-  'Shalwar Kameez',
-  'Lehenga',
-  'Saree',
-  'Kurta',
-  'Thobe',
-  'Sherwani',
-  'Lawn Suits',
-  'Kids',
-  'Accessories'
+  'All Categories', 'Abayas', 'Hijabs & Scarves', 'Shalwar Kameez',
+  'Lehenga', 'Saree', 'Kurta', 'Thobe', 'Sherwani', 'Lawn Suits', 'Kids', 'Accessories'
 ]
 
 export default function BrowsePage() {
@@ -111,31 +29,28 @@ export default function BrowsePage() {
 
       <main className="min-h-screen bg-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Page Header */}
           <div className="mb-8">
-            <h1 className="font-serif text-4xl text-white mb-2">Browse Modest Fashion</h1>
-            <p className="text-gold-light">Discover authentic modest fashion from trusted sellers</p>
+            <h1 className="font-serif text-4xl text-white mb-2 tracking-heading leading-heading">Browse Modest Fashion</h1>
+            <p className="text-gold-light font-sans">Discover authentic modest fashion from trusted sellers</p>
           </div>
 
           {/* Filter Bar */}
           <div className="bg-bg-mid rounded-lg p-4 mb-8">
             <div className="flex flex-wrap gap-4 items-center">
-              {/* Category Chips */}
               <div className="flex flex-wrap gap-2">
                 {categories.slice(0, 6).map((category) => (
                   <button
                     key={category}
-                    className={`px-4 py-2 rounded-md font-sans text-sm ${category === 'All Categories' ? 'bg-gold text-bg' : 'bg-bg text-white hover:bg-gold/20'}`}
+                    className={`px-4 py-2 rounded-md font-sans text-sm transition-fluid duration-300 ${category === 'All Categories' ? 'bg-gold text-bg' : 'bg-bg text-white hover:bg-gold/20'}`}
                   >
                     {category}
                   </button>
                 ))}
-                <button className="px-4 py-2 rounded-md font-sans text-sm bg-bg text-white hover:bg-gold/20 flex items-center gap-1">
+                <button className="px-4 py-2 rounded-md font-sans text-sm bg-bg text-white hover:bg-gold/20 transition-fluid duration-300 flex items-center gap-1">
                   More <ChevronDown className="h-4 w-4" />
                 </button>
               </div>
 
-              {/* Filter Dropdowns */}
               <div className="flex flex-wrap gap-4 ml-auto">
                 <div className="relative">
                   <select className="bg-bg border border-border text-white rounded-md px-4 py-2 pr-8 focus:outline-none focus:ring-2 focus:ring-gold appearance-none font-sans">
@@ -175,30 +90,29 @@ export default function BrowsePage() {
             </div>
           </div>
 
-          {/* Featured Card (Double Width) */}
+          {/* Featured Card */}
           <div className="mb-8">
-            <div className="bg-bg-light rounded-lg overflow-hidden card-shadow">
+            <div className="bg-bg-light rounded-lg overflow-hidden card-shadow hover:-translate-y-[2px] hover:shadow-hover transition-fluid duration-300">
               <div className="grid md:grid-cols-2">
                 <div className="aspect-square bg-bg-mid">
-                  {/* Featured image placeholder */}
                   <div className="w-full h-full bg-gradient-to-br from-gold/30 to-bg-light/30" />
                 </div>
                 <div className="p-8">
                   <div className="mb-4">
-                    <span className="px-3 py-1 bg-gold text-bg rounded-md text-sm font-sans">
+                    <span className="px-3 py-1 bg-gold text-bg rounded-md text-sm font-sans label">
                       Featured
                     </span>
                   </div>
-                  <h2 className="font-serif text-3xl text-text-dark mb-4">
+                  <h2 className="font-serif text-3xl text-text-dark mb-4 tracking-heading leading-heading">
                     Designer Abaya Collection
                   </h2>
-                  <p className="text-text-muted mb-6">
+                  <p className="text-text-muted mb-6 font-sans">
                     Exclusive collection of hand-embroidered abayas from renowned designers across the Middle East.
                   </p>
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-serif text-2xl text-text-dark">From $199</p>
-                      <p className="text-sm text-text-muted">Free shipping on orders over $150</p>
+                      <p className="text-sm text-text-muted font-sans">Free shipping on orders over $150</p>
                     </div>
                     <Button variant="primary">Shop Collection</Button>
                   </div>
@@ -210,18 +124,17 @@ export default function BrowsePage() {
           {/* Product Grid */}
           <div className="mb-12">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="font-serif text-2xl text-white">All Listings</h2>
+              <h2 className="font-serif text-2xl text-white tracking-heading leading-heading">All Listings</h2>
               <p className="text-gold-light font-sans">Showing 1-8 of 10,234 results</p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {listings.map((listing) => (
                 <ProductCard key={listing.id} {...listing} />
               ))}
             </div>
           </div>
 
-          {/* Load More */}
           <div className="text-center">
             <Button variant="outline" size="lg">
               Load More

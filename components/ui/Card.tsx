@@ -5,13 +5,17 @@ interface CardProps {
   className?: string
   hover?: boolean
   padding?: 'none' | 'sm' | 'md' | 'lg'
+  perpetual?: boolean
+  bordered?: boolean
 }
 
 export default function Card({
   children,
   className = '',
   hover = false,
-  padding = 'md'
+  padding = 'md',
+  perpetual = false,
+  bordered = false
 }: CardProps) {
   const paddingClasses = {
     none: '',
@@ -20,11 +24,16 @@ export default function Card({
     lg: 'p-7'
   }
 
-  const hoverClass = hover ? 'transition-all duration-300 hover:scale-[1.02] hover:shadow-xl' : ''
+  const baseClasses = 'bg-bg-light rounded-md card-shadow transition-fluid duration-300'
+  const borderedClass = bordered ? 'border border-border' : ''
+
+  const hoverClass = hover ? 'hover:shadow-hover hover:-translate-y-[2px] hover:scale-[1.02]' : ''
+
+  const perpetualClass = perpetual ? 'animate-float' : ''
 
   return (
     <div
-      className={`bg-bg-light rounded-md card-shadow ${paddingClasses[padding]} ${hoverClass} ${className}`}
+      className={`${baseClasses} ${paddingClasses[padding]} ${hoverClass} ${perpetualClass} ${borderedClass} ${className}`}
     >
       {children}
     </div>

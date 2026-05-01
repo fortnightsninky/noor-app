@@ -87,38 +87,38 @@ export default function Home() {
           </div>
 
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
               {/* Left: Headline & CTAs */}
-              <div>
-                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-white mb-6">
+              <div className="lg:pr-8">
+                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-white mb-6 tracking-heading leading-heading">
                   The Marketplace for
                   <br />
-                  <span className="italic">Modest Fashion</span>
+                  <span className="block italic">Modest Fashion</span>
                 </h1>
                 <p className="text-xl text-gold-light mb-8 max-w-xl">
                   Discover authentic modest fashion from trusted sellers across the United States.
                 </p>
 
                 <div className="flex flex-wrap gap-4 mb-10">
-                  <Button variant="primary" size="lg">
+                  <Button variant="primary" size="lg" className="hover:-translate-y-[2px] hover:shadow-md focus:-translate-y-[2px] focus:shadow-md focus:ring-2 focus:ring-gold focus-ring-offset-2 focus-ring-offset-bg">
                     Start Shopping
                   </Button>
-                  <Button variant="outline" size="lg">
+                  <Button variant="outline" size="lg" className="hover:-translate-y-[2px] hover:shadow-md focus:-translate-y-[2px] focus:shadow-md focus:ring-2 focus:ring-gold focus-ring-offset-2 focus-ring-offset-bg">
                     Start Selling
                   </Button>
                 </div>
 
                 {/* Stats */}
-                <div className="flex gap-8">
-                  <div>
+                <div className="flex gap-8 mb-6">
+                  <div className="text-center">
                     <p className="text-2xl font-serif text-gold">10K+</p>
                     <p className="text-sm text-gold-light/80 font-sans">Active Listings</p>
                   </div>
-                  <div>
+                  <div className="text-center">
                     <p className="text-2xl font-serif text-gold">5K+</p>
                     <p className="text-sm text-gold-light/80 font-sans">Trusted Sellers</p>
                   </div>
-                  <div>
+                  <div className="text-center">
                     <p className="text-2xl font-serif text-gold">98%</p>
                     <p className="text-sm text-gold-light/80 font-sans">Positive Reviews</p>
                   </div>
@@ -126,13 +126,15 @@ export default function Home() {
               </div>
 
               {/* Right: Product Grid */}
-              <div className="grid grid-cols-2 gap-4">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="aspect-square bg-bg-mid rounded-md overflow-hidden">
-                    {/* Product image placeholder */}
-                    <div className="w-full h-full bg-gradient-to-br from-gold/20 to-bg-light/20" />
-                  </div>
-                ))}
+              <div className="lg:pl-8">
+                <div className="grid grid-cols-2 gap-6">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="aspect-square bg-bg-mid rounded-md overflow-hidden hover:-translate-y-[3px] hover:shadow-md transition-fluid duration-300">
+                      {/* Product image placeholder */}
+                      <div className="w-full h-full bg-gradient-to-br from-gold/20 to-bg-light/20" />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -141,12 +143,12 @@ export default function Home() {
         {/* Shop by Occasion */}
         <section className="py-12 bg-bg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-serif text-3xl text-white mb-8">Shop by Occasion</h2>
+            <h2 className="font-serif text-3xl text-white mb-8 tracking-heading leading-heading">Shop by Occasion</h2>
             <div className="flex gap-4 overflow-x-auto pb-4">
               {occasions.map((occasion) => (
                 <button
                   key={occasion}
-                  className="flex-shrink-0 px-6 py-3 border border-gold rounded-md text-gold hover:bg-gold/10 transition-colors font-sans"
+                  className="flex-shrink-0 px-6 py-3 border border-gold rounded-md text-gold hover:bg-gold/15 transition-fluid duration-300 hover:-translate-y-[2px] hover:shadow-md font-sans"
                 >
                   {occasion}
                 </button>
@@ -158,14 +160,14 @@ export default function Home() {
         {/* Category Grid */}
         <section className="py-16 bg-bg-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-serif text-3xl text-text-dark mb-10">Shop by Category</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-              {categories.map((category) => (
+            <h2 className="font-serif text-3xl text-text-dark mb-10 tracking-heading leading-heading">Shop by Category</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+              {categories.map((category, index) => (
                 <div
                   key={category.name}
-                  className="aspect-square bg-white rounded-md p-6 flex flex-col justify-between hover:shadow-xl transition-shadow"
+                  className={`aspect-square bg-white rounded-md p-6 flex flex-col justify-between hover:-translate-y-[3px] hover:shadow-md transition-fluid duration-300`}
                 >
-                  <h3 className="font-serif text-xl text-text-dark">{category.name}</h3>
+                  <h3 className="font-serif text-xl text-text-dark tracking-heading leading-heading">{category.name}</h3>
                   <p className="text-sm text-text-muted font-sans">{category.count} items</p>
                 </div>
               ))}
@@ -176,10 +178,10 @@ export default function Home() {
         {/* Featured Listings */}
         <section className="py-16 bg-bg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-serif text-3xl text-white mb-10">Featured Listings</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {featuredListings.map((listing) => (
-                <ProductCard key={listing.id} {...listing} />
+            <h2 className="font-serif text-3xl text-white mb-10 tracking-heading leading-heading">Featured Listings</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {featuredListings.map((listing, index) => (
+                <ProductCard key={listing.id} {...listing} className="hover:-translate-y-[3px] hover:shadow-md transition-fluid duration-300 will-transform focus:-translate-y-[3px] focus:shadow-md focus:ring-2 focus:ring-gold focus-ring-offset-2 focus-ring-offset-bg" />
               ))}
             </div>
           </div>
@@ -188,15 +190,15 @@ export default function Home() {
         {/* Browse by Culture */}
         <section className="py-16 bg-bg-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-serif text-3xl text-text-dark mb-10">Browse by Culture</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-              {culturalCards.map((culture) => (
+            <h2 className="font-serif text-3xl text-text-dark mb-10 tracking-heading leading-heading">Browse by Culture</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+              {culturalCards.map((culture, index) => (
                 <div
                   key={culture}
-                  className="aspect-[4/3] bg-bg-mid rounded-md p-6 relative overflow-hidden group"
+                  className={`aspect-[4/3] bg-bg-mid rounded-md p-6 relative overflow-hidden group hover:-translate-y-[3px] hover:shadow-md transition-fluid duration-300`}
                 >
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  <h3 className="relative font-serif text-xl text-white italic z-10">
+                  <h3 className="relative font-serif text-xl text-white italic z-10 tracking-heading leading-heading">
                     {culture}
                   </h3>
                 </div>

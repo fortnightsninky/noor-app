@@ -5,7 +5,7 @@ import Button from '@/components/ui/Button'
 import Badge from '@/components/ui/Badge'
 import Card from '@/components/ui/Card'
 import ProductCard from '@/components/listing/ProductCard'
-import { ChevronLeft, ChevronRight, Heart, Share2, Star, Check, Truck, Shield, Clock } from 'lucide-react'
+import { Heart, Share2, Star, Check, Truck, Shield, Clock } from 'lucide-react'
 
 export default function ListingPage() {
   const listing = {
@@ -102,29 +102,27 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
       <main className="min-h-screen bg-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Breadcrumb */}
-          <div className="mb-6">
-            <nav className="text-gold-light font-sans">
-              <a href="/" className="hover:text-gold">Home</a>
-              <span className="mx-2">/</span>
-              <a href="/browse" className="hover:text-gold">Browse</a>
-              <span className="mx-2">/</span>
-              <a href="/browse?category=abayas" className="hover:text-gold">Abayas</a>
-              <span className="mx-2">/</span>
-              <span className="text-white">{listing.title.substring(0, 30)}...</span>
-            </nav>
-          </div>
+          <nav className="mb-8 text-gold-light font-sans text-sm">
+            <a href="/" className="hover:text-gold transition-fluid duration-300">Home</a>
+            <span className="mx-2 opacity-40">/</span>
+            <a href="/browse" className="hover:text-gold transition-fluid duration-300">Browse</a>
+            <span className="mx-2 opacity-40">/</span>
+            <a href="/browse?category=abayas" className="hover:text-gold transition-fluid duration-300">Abayas</a>
+            <span className="mx-2 opacity-40">/</span>
+            <span className="text-white/60">{listing.title.substring(0, 30)}...</span>
+          </nav>
 
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Left: Image Gallery */}
             <div>
-              <div className="aspect-square bg-bg-mid rounded-lg overflow-hidden mb-4">
+              <div className="aspect-square bg-bg-mid rounded-md overflow-hidden mb-4 hover:-translate-y-[2px] hover:shadow-hover transition-fluid duration-300 will-transform">
                 <div className="w-full h-full bg-gradient-to-br from-gold/20 to-bg-light/20" />
               </div>
-              <div className="flex gap-2 overflow-x-auto pb-4">
+              <div className="flex gap-3 overflow-x-auto pb-4">
                 {listing.images.map((_, index) => (
                   <div
                     key={index}
-                    className="flex-shrink-0 w-20 h-20 bg-bg-mid rounded-md overflow-hidden"
+                    className="flex-shrink-0 w-20 h-20 bg-bg-mid rounded-md overflow-hidden hover:-translate-y-[1px] hover:shadow-md transition-fluid duration-300 will-transform cursor-pointer border border-transparent hover:border-gold/50"
                   >
                     <div className="w-full h-full bg-gradient-to-br from-gold/10 to-bg-light/10" />
                   </div>
@@ -139,22 +137,24 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
                   <Badge variant="gold">{listing.condition}</Badge>
                   <Badge variant="success">In Stock ({listing.quantity})</Badge>
                 </div>
-                <h1 className="font-serif text-3xl text-white mb-4">{listing.title}</h1>
+                <h1 className="font-serif text-3xl md:text-4xl text-white mb-4 tracking-heading leading-heading">
+                  {listing.title}
+                </h1>
                 <div className="h-px bg-border mb-4" />
 
-                <div className="flex items-center gap-4 mb-6">
-                  <p className="font-serif text-4xl text-gold">${listing.price.toFixed(2)}</p>
-                  <p className="text-gold-light">+${listing.shippingCost.toFixed(2)} shipping</p>
+                <div className="flex items-baseline gap-4 mb-6">
+                  <p className="font-serif text-4xl text-gold tracking-heading leading-heading">${listing.price.toFixed(2)}</p>
+                  <p className="text-gold-light/80 font-sans">+${listing.shippingCost.toFixed(2)} shipping</p>
                 </div>
 
                 {/* Size Selector */}
                 <div className="mb-8">
-                  <p className="font-sans font-medium text-white mb-3">Select Size</p>
+                  <p className="label text-white mb-3">Select Size</p>
                   <div className="flex flex-wrap gap-2">
                     {listing.sizes.map((size) => (
                       <button
                         key={size}
-                        className="px-4 py-2 border border-border rounded-md text-white hover:border-gold hover:bg-gold/10 transition-colors font-sans"
+                        className="px-4 py-2 border border-border rounded-md text-white hover:border-gold hover:bg-gold/10 transition-fluid duration-300 will-transform hover:-translate-y-[1px] hover:shadow-md font-sans"
                       >
                         {size}
                       </button>
@@ -166,62 +166,62 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
                 <div className="mb-8">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="flex items-center border border-border rounded-md">
-                      <button className="px-3 py-2 text-white hover:bg-bg-mid">-</button>
-                      <span className="px-4 py-2 text-white border-x border-border">1</span>
-                      <button className="px-3 py-2 text-white hover:bg-bg-mid">+</button>
+                      <button className="px-3 py-2 text-white hover:bg-bg-mid transition-fluid duration-300 will-transform hover:-translate-y-[1px]">-</button>
+                      <span className="px-4 py-2 text-white border-x border-border font-sans">1</span>
+                      <button className="px-3 py-2 text-white hover:bg-bg-mid transition-fluid duration-300 will-transform hover:-translate-y-[1px]">+</button>
                     </div>
-                    <p className="text-gold-light text-sm">{listing.quantity} available</p>
+                    <p className="text-gold-light/80 text-sm font-sans">{listing.quantity} available</p>
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <Button variant="primary" size="lg" fullWidth className="flex-1">
+                    <Button variant="primary" size="lg" fullWidth className="flex-1 hover:-translate-y-[2px] hover:shadow-hover focus:-translate-y-[2px] focus:shadow-hover focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg">
                       Add to Cart
                     </Button>
-                    <Button variant="outline" size="lg" fullWidth className="flex-1">
+                    <Button variant="outline" size="lg" fullWidth className="flex-1 hover:-translate-y-[2px] hover:shadow-hover focus:-translate-y-[2px] focus:shadow-hover focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg">
                       Buy Now
                     </Button>
-                    <button className="p-3 border border-border rounded-md text-white hover:bg-bg-mid">
+                    <button className="p-3 border border-border rounded-md text-white hover:bg-bg-mid hover:border-gold/50 transition-fluid duration-300 will-transform hover:-translate-y-[1px] hover:shadow-md">
                       <Heart className="h-5 w-5" />
                     </button>
-                    <button className="p-3 border border-border rounded-md text-white hover:bg-bg-mid">
+                    <button className="p-3 border border-border rounded-md text-white hover:bg-bg-mid hover:border-gold/50 transition-fluid duration-300 will-transform hover:-translate-y-[1px] hover:shadow-md">
                       <Share2 className="h-5 w-5" />
                     </button>
                   </div>
                 </div>
 
                 {/* Seller Card */}
-                <Card className="mb-8">
+                <Card className="mb-8 hover:-translate-y-[2px] hover:shadow-hover transition-fluid duration-300 will-transform">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="w-12 h-12 bg-gold/20 rounded-full" />
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-serif text-lg text-text-dark">{listing.sellerName}</h3>
+                        <h3 className="font-serif text-lg text-text-dark tracking-heading leading-heading">{listing.sellerName}</h3>
                         <Badge variant="gold" size="sm">
                           <Check className="h-3 w-3 mr-1" />
                           Noor Verified
                         </Badge>
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-text-muted">
+                      <div className="flex items-center gap-4 text-sm text-text-muted font-sans">
                         <span className="flex items-center gap-1">
                           <Star className="h-4 w-4 fill-gold text-gold" />
                           {listing.sellerRating}
                         </span>
                         <span>{listing.totalSales} sales</span>
-                        <span>{listing.responseRate}% response rate</span>
+                        <span>{listing.responseRate}% response</span>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="hover:-translate-y-[1px] hover:shadow-md focus:-translate-y-[1px] focus:shadow-md focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg">
                       Follow
                     </Button>
                   </div>
                   <div className="flex gap-4">
-                    <button className="text-sm text-gold hover:underline font-sans">
+                    <button className="text-sm text-gold hover:underline font-sans transition-fluid duration-300">
                       View Shop
                     </button>
-                    <button className="text-sm text-gold hover:underline font-sans">
+                    <button className="text-sm text-gold hover:underline font-sans transition-fluid duration-300">
                       Message Seller
                     </button>
-                    <button className="text-sm text-red-500 hover:underline font-sans ml-auto">
+                    <button className="text-sm text-red-500 hover:underline font-sans ml-auto transition-fluid duration-300">
                       Report Listing
                     </button>
                   </div>
@@ -229,15 +229,15 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
 
                 {/* Features */}
                 <div className="grid grid-cols-3 gap-4 mb-8">
-                  <div className="text-center p-4 bg-bg-mid rounded-md">
+                  <div className="text-center p-4 bg-bg-mid rounded-md hover:-translate-y-[1px] hover:shadow-md transition-fluid duration-300 will-transform">
                     <Truck className="h-6 w-6 text-gold mx-auto mb-2" />
                     <p className="text-sm text-white font-sans">Free Returns</p>
                   </div>
-                  <div className="text-center p-4 bg-bg-mid rounded-md">
+                  <div className="text-center p-4 bg-bg-mid rounded-md hover:-translate-y-[1px] hover:shadow-md transition-fluid duration-300 will-transform">
                     <Shield className="h-6 w-6 text-gold mx-auto mb-2" />
                     <p className="text-sm text-white font-sans">Buyer Protection</p>
                   </div>
-                  <div className="text-center p-4 bg-bg-mid rounded-md">
+                  <div className="text-center p-4 bg-bg-mid rounded-md hover:-translate-y-[1px] hover:shadow-md transition-fluid duration-300 will-transform">
                     <Clock className="h-6 w-6 text-gold mx-auto mb-2" />
                     <p className="text-sm text-white font-sans">Ships in 1-2 days</p>
                   </div>
@@ -247,13 +247,13 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
           </div>
 
           {/* Tabs */}
-          <div className="mt-12">
+          <div className="mt-16">
             <div className="border-b border-border">
               <nav className="flex gap-8">
                 {['Description', 'Size & Fit', 'Shipping', 'Seller Policy'].map((tab) => (
                   <button
                     key={tab}
-                    className={`pb-3 font-sans font-medium ${tab === 'Description' ? 'text-gold border-b-2 border-gold' : 'text-gold-light hover:text-gold'}`}
+                    className={`pb-3 font-sans font-medium transition-fluid duration-300 ${tab === 'Description' ? 'text-gold border-b-2 border-gold' : 'text-gold-light/80 hover:text-gold'}`}
                   >
                     {tab}
                   </button>
@@ -263,23 +263,23 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
 
             <div className="py-8">
               <div className="prose prose-invert max-w-none">
-                <p className="text-white whitespace-pre-line">{listing.description}</p>
-                <div className="grid grid-cols-2 gap-4 mt-6">
+                <p className="text-white/90 whitespace-pre-line font-sans leading-relaxed">{listing.description}</p>
+                <div className="grid grid-cols-2 gap-6 mt-8">
                   <div>
-                    <p className="font-sans font-medium text-gold-light mb-2">Fabric</p>
-                    <p className="text-white">{listing.fabric}</p>
+                    <p className="label text-gold-light mb-2">Fabric</p>
+                    <p className="text-white font-sans">{listing.fabric}</p>
                   </div>
                   <div>
-                    <p className="font-sans font-medium text-gold-light mb-2">Color</p>
-                    <p className="text-white">{listing.color}</p>
+                    <p className="label text-gold-light mb-2">Color</p>
+                    <p className="text-white font-sans">{listing.color}</p>
                   </div>
                   <div>
-                    <p className="font-sans font-medium text-gold-light mb-2">Occasion</p>
-                    <p className="text-white">{listing.occasion}</p>
+                    <p className="label text-gold-light mb-2">Occasion</p>
+                    <p className="text-white font-sans">{listing.occasion}</p>
                   </div>
                   <div>
-                    <p className="font-sans font-medium text-gold-light mb-2">Brand</p>
-                    <p className="text-white">{listing.brand}</p>
+                    <p className="label text-gold-light mb-2">Brand</p>
+                    <p className="text-white font-sans">{listing.brand}</p>
                   </div>
                 </div>
               </div>
@@ -287,12 +287,12 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
           </div>
 
           {/* Reviews */}
-          <div className="mt-12">
-            <h2 className="font-serif text-2xl text-white mb-6">Reviews ({listing.reviewCount})</h2>
+          <div className="mt-16">
+            <h2 className="font-serif text-2xl text-white mb-8 tracking-heading leading-heading">Reviews ({listing.reviewCount})</h2>
             <div className="grid lg:grid-cols-3 gap-8">
               <div>
-                <div className="text-center p-6 bg-bg-mid rounded-lg">
-                  <div className="text-5xl font-serif text-gold mb-2">{listing.rating}</div>
+                <div className="text-center p-8 bg-bg-mid rounded-md hover:-translate-y-[2px] hover:shadow-md transition-fluid duration-300 will-transform">
+                  <div className="text-5xl font-serif text-gold mb-2 tracking-heading leading-heading">{listing.rating}</div>
                   <div className="flex justify-center mb-2">
                     {[...Array(5)].map((_, i) => (
                       <Star
@@ -301,13 +301,13 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
                       />
                     ))}
                   </div>
-                  <p className="text-gold-light">{listing.reviewCount} reviews</p>
+                  <p className="text-gold-light/80 font-sans">{listing.reviewCount} reviews</p>
                 </div>
               </div>
               <div className="lg:col-span-2">
                 <div className="space-y-6">
                   {reviews.map((review, index) => (
-                    <Card key={index}>
+                    <Card key={index} className="hover:-translate-y-[1px] hover:shadow-md transition-fluid duration-300 will-transform">
                       <div className="flex items-center gap-2 mb-2">
                         {[...Array(5)].map((_, i) => (
                           <Star
@@ -316,8 +316,8 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
                           />
                         ))}
                       </div>
-                      <p className="text-text-dark mb-2">{review.comment}</p>
-                      <div className="flex justify-between text-sm text-text-muted">
+                      <p className="text-text-dark mb-2 font-sans">{review.comment}</p>
+                      <div className="flex justify-between text-sm text-text-muted font-sans">
                         <span>{review.reviewer}</span>
                         <span>{review.date}</span>
                       </div>
@@ -329,21 +329,21 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
           </div>
 
           {/* More from this seller */}
-          <div className="mt-12">
-            <h2 className="font-serif text-2xl text-white mb-6">More from {listing.sellerName}</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="mt-16">
+            <h2 className="font-serif text-2xl text-white mb-8 tracking-heading leading-heading">More from {listing.sellerName}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {relatedListings.filter(l => l.sellerName === listing.sellerName).map((listing) => (
-                <ProductCard key={listing.id} {...listing} />
+                <ProductCard key={listing.id} {...listing} className="hover:-translate-y-[3px] hover:shadow-md transition-fluid duration-300 will-transform" />
               ))}
             </div>
           </div>
 
           {/* You may also like */}
-          <div className="mt-12">
-            <h2 className="font-serif text-2xl text-white mb-6">You may also like</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="mt-16">
+            <h2 className="font-serif text-2xl text-white mb-8 tracking-heading leading-heading">You may also like</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {relatedListings.filter(l => l.sellerName !== listing.sellerName).map((listing) => (
-                <ProductCard key={listing.id} {...listing} />
+                <ProductCard key={listing.id} {...listing} className="hover:-translate-y-[3px] hover:shadow-md transition-fluid duration-300 will-transform" />
               ))}
             </div>
           </div>

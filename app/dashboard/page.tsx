@@ -98,7 +98,7 @@ export default function SellerDashboard() {
   ]
 
   const lifetimeGMV = 8452.20
-  const loyaltyProgress = (lifetimeGMV / 10000) * 100 // Progress toward $10K for 10% commission
+  const loyaltyProgress = (lifetimeGMV / 10000) * 100
 
   return (
     <>
@@ -111,15 +111,15 @@ export default function SellerDashboard() {
           <div className="mb-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
-                <h1 className="font-serif text-3xl text-white mb-2">Seller Dashboard</h1>
-                <p className="text-gold-light">Welcome back, ZahraDesigns</p>
+                <h1 className="font-serif text-3xl text-white mb-2 tracking-heading leading-heading">Seller Dashboard</h1>
+                <p className="text-gold-light font-sans">Welcome back, ZahraDesigns</p>
               </div>
               <div className="flex gap-4">
-                <Button variant="outline">
+                <Button variant="outline" className="hover:-translate-y-[1px] hover:shadow-md focus:-translate-y-[1px] focus:shadow-md focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg">
                   <Upload className="h-4 w-4 mr-2" />
                   Bulk Upload
                 </Button>
-                <Button variant="primary">
+                <Button variant="primary" className="hover:-translate-y-[1px] hover:shadow-md focus:-translate-y-[1px] focus:shadow-md focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg">
                   <Plus className="h-4 w-4 mr-2" />
                   New Listing
                 </Button>
@@ -128,9 +128,9 @@ export default function SellerDashboard() {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             {stats.map((stat, index) => (
-              <Card key={index} className="p-6">
+              <Card key={index} className="p-6 hover:-translate-y-[2px] hover:shadow-md transition-fluid duration-300">
                 <div className="flex items-center justify-between mb-4">
                   <div className={`p-3 ${stat.bgClass} rounded-md`}>
                     <stat.icon className={`h-6 w-6 ${stat.textClass}`} />
@@ -139,7 +139,7 @@ export default function SellerDashboard() {
                     {stat.change}
                   </span>
                 </div>
-                <p className="text-2xl font-serif text-text-dark mb-1">{stat.value}</p>
+                <p className="text-2xl font-serif text-text-dark mb-1 tracking-heading leading-heading">{stat.value}</p>
                 <p className="text-sm text-text-muted font-sans">{stat.label}</p>
               </Card>
             ))}
@@ -157,8 +157,8 @@ export default function SellerDashboard() {
                 ].map(tab => (
                   <button
                     key={tab.id}
-                    onClick={() => setActiveTab(tab.id as any)}
-                    className={`pb-3 font-sans font-medium flex items-center gap-2 ${activeTab === tab.id ? 'text-gold border-b-2 border-gold' : 'text-gold-light hover:text-gold'}`}
+                    onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                    className={`pb-3 font-sans font-medium flex items-center gap-2 transition-fluid duration-300 ${activeTab === tab.id ? 'text-gold border-b-2 border-gold' : 'text-gold-light hover:text-gold'}`}
                   >
                     <tab.icon className="h-4 w-4" />
                     {tab.label}
@@ -171,13 +171,10 @@ export default function SellerDashboard() {
           {/* Overview Tab */}
           {activeTab === 'overview' && (
             <div className="space-y-8">
-              {/* Orders Summary */}
               <Card className="p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="font-serif text-xl text-text-dark">Recent Orders</h2>
-                  <Button variant="ghost" size="sm">
-                    View All
-                  </Button>
+                  <h2 className="font-serif text-xl text-text-dark tracking-heading leading-heading">Recent Orders</h2>
+                  <Button variant="ghost" size="sm">View All</Button>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full">
@@ -193,7 +190,7 @@ export default function SellerDashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {orders.new.map(order => (
+                      {orders.new.map((order) => (
                         <tr key={order.id} className="border-b border-border last:border-0">
                           <td className="py-3 px-4 font-sans text-text-dark">{order.id}</td>
                           <td className="py-3 px-4 font-sans text-text-dark">{order.customer}</td>
@@ -213,12 +210,11 @@ export default function SellerDashboard() {
                 </div>
               </Card>
 
-              {/* Listings Performance */}
               <div className="grid lg:grid-cols-3 gap-8">
                 <Card className="p-6 lg:col-span-2">
-                  <h2 className="font-serif text-xl text-text-dark mb-6">Listing Performance</h2>
+                  <h2 className="font-serif text-xl text-text-dark mb-6 tracking-heading leading-heading">Listing Performance</h2>
                   <div className="space-y-4">
-                    {listings.slice(0, 3).map(listing => (
+                    {listings.slice(0, 3).map((listing) => (
                       <div key={listing.id} className="flex items-center justify-between p-4 border border-border rounded-md">
                         <div className="flex items-center gap-4">
                           <div className="w-12 h-12 bg-bg-mid rounded-md" />
@@ -234,10 +230,10 @@ export default function SellerDashboard() {
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
-                          <button className="p-2 text-text-muted hover:text-text-dark">
+                          <button className="p-2 text-text-muted hover:text-text-dark transition-fluid duration-300">
                             <Edit className="h-4 w-4" />
                           </button>
-                          <button className="p-2 text-text-muted hover:text-text-dark">
+                          <button className="p-2 text-text-muted hover:text-text-dark transition-fluid duration-300">
                             <MoreVertical className="h-4 w-4" />
                           </button>
                         </div>
@@ -246,9 +242,8 @@ export default function SellerDashboard() {
                   </div>
                 </Card>
 
-                {/* Loyalty Progress */}
                 <Card className="p-6">
-                  <h2 className="font-serif text-xl text-text-dark mb-6 flex items-center gap-2">
+                  <h2 className="font-serif text-xl text-text-dark mb-6 tracking-heading leading-heading flex items-center gap-2">
                     <Target className="h-5 w-5" />
                     Loyalty Discount
                   </h2>
@@ -259,7 +254,7 @@ export default function SellerDashboard() {
                     </div>
                     <div className="h-3 bg-bg-mid rounded-full overflow-hidden">
                       <div
-                        className="h-full gold-gradient rounded-full"
+                        className="h-full gold-gradient rounded-full transition-fluid duration-500"
                         style={{ width: `${Math.min(loyaltyProgress, 100)}%` }}
                       />
                     </div>
@@ -268,7 +263,6 @@ export default function SellerDashboard() {
                     </p>
                   </div>
 
-                  {/* Vacation Mode */}
                   <div className="pt-6 border-t border-border">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="font-serif text-lg text-text-dark flex items-center gap-2">
@@ -277,7 +271,7 @@ export default function SellerDashboard() {
                       </h3>
                       <button
                         onClick={() => setVacationMode(!vacationMode)}
-                        className={`relative inline-flex h-6 w-11 items-center rounded-full ${vacationMode ? 'bg-gold' : 'bg-bg-mid'}`}
+                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-fluid duration-300 ${vacationMode ? 'bg-gold' : 'bg-bg-mid'}`}
                       >
                         <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${vacationMode ? 'translate-x-6' : 'translate-x-1'}`} />
                       </button>
@@ -285,7 +279,7 @@ export default function SellerDashboard() {
                     <p className="text-sm text-text-muted font-sans">
                       {vacationMode
                         ? 'Your shop is in vacation mode. New orders are paused.'
-                        : 'Turn on vacation mode to pause new orders while you\'re away.'}
+                        : "Turn on vacation mode to pause new orders while you're away."}
                     </p>
                   </div>
                 </Card>
@@ -302,7 +296,7 @@ export default function SellerDashboard() {
                     <button
                       key={tab}
                       onClick={() => setOrdersTab(tab)}
-                      className={`px-4 py-2 rounded-md font-sans capitalize ${ordersTab === tab ? 'bg-gold text-bg' : 'bg-bg-light text-text-dark hover:bg-bg-mid'}`}
+                      className={`px-4 py-2 rounded-md font-sans capitalize transition-fluid duration-300 ${ordersTab === tab ? 'bg-gold text-bg' : 'bg-bg-light text-text-dark hover:bg-bg-mid'}`}
                     >
                       {tab} ({orders[tab].length})
                     </button>
@@ -329,7 +323,7 @@ export default function SellerDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {orders[ordersTab].map(order => (
+                    {orders[ordersTab].map((order) => (
                       <tr key={order.id} className="border-b border-border last:border-0">
                         <td className="py-3 px-4 font-sans text-text-dark">{order.id}</td>
                         <td className="py-3 px-4 font-sans text-text-dark">{order.customer}</td>
@@ -366,7 +360,7 @@ export default function SellerDashboard() {
                             {ordersTab === 'shipped' && (
                               <Button variant="outline" size="sm">Tracking</Button>
                             )}
-                            <button className="p-1 text-text-muted hover:text-text-dark">
+                            <button className="p-1 text-text-muted hover:text-text-dark transition-fluid duration-300">
                               <MoreVertical className="h-4 w-4" />
                             </button>
                           </div>
@@ -406,18 +400,18 @@ export default function SellerDashboard() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {listings.map(listing => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {listings.map((listing) => (
                   <div key={listing.id} className="relative">
                     <ProductCard {...listing} />
                     <div className="absolute top-3 right-3 flex gap-1">
-                      <button className="p-1.5 bg-white/90 rounded hover:bg-white">
+                      <button className="p-1.5 bg-white/90 rounded hover:bg-white transition-fluid duration-300">
                         <Edit className="h-3.5 w-3.5 text-text-muted" />
                       </button>
-                      <button className="p-1.5 bg-white/90 rounded hover:bg-white">
+                      <button className="p-1.5 bg-white/90 rounded hover:bg-white transition-fluid duration-300">
                         <Pause className="h-3.5 w-3.5 text-text-muted" />
                       </button>
-                      <button className="p-1.5 bg-white/90 rounded hover:bg-white">
+                      <button className="p-1.5 bg-white/90 rounded hover:bg-white transition-fluid duration-300">
                         <Trash2 className="h-3.5 w-3.5 text-text-muted" />
                       </button>
                     </div>
@@ -430,13 +424,13 @@ export default function SellerDashboard() {
           {/* Payouts Tab */}
           {activeTab === 'payouts' && (
             <Card className="p-6">
-              <h2 className="font-serif text-xl text-text-dark mb-6">Payout Settings</h2>
+              <h2 className="font-serif text-xl text-text-dark mb-6 tracking-heading leading-heading">Payout Settings</h2>
               <div className="grid lg:grid-cols-2 gap-8">
                 <div>
                   <h3 className="font-serif text-lg text-text-dark mb-4">Stripe Connect Status</h3>
                   <div className="p-4 bg-green-50 border border-green-200 rounded-md mb-6">
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                      <div className="w-3 h-3 bg-green-500 rounded-full" />
                       <span className="font-sans font-medium text-green-800">Connected</span>
                     </div>
                     <p className="text-sm text-green-700 font-sans">

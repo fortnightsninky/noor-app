@@ -17,6 +17,7 @@ interface ProductCardProps {
   category: string
   isWishlisted?: boolean
   onWishlistToggle?: () => void
+  className?: string
 }
 
 export default function ProductCard({
@@ -29,7 +30,8 @@ export default function ProductCard({
   sellerName,
   category,
   isWishlisted = false,
-  onWishlistToggle
+  onWishlistToggle,
+  className = ''
 }: ProductCardProps) {
   const conditionLabels = {
     NEW: 'New',
@@ -44,8 +46,8 @@ export default function ProductCard({
   } as const
 
   return (
-    <Card hover padding="none" className="overflow-hidden">
-      <Link href={`/listing/${id}`}>
+    <Card hover perpetual padding="none" className={`overflow-hidden ${className}`}>
+      <Link href={`/listing/${id}`} className="block">
         {/* Image */}
         <div className="relative aspect-square bg-bg-mid">
           {images[0] && (

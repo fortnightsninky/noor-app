@@ -6,8 +6,7 @@ import Footer from '@/components/layout/Footer'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Card from '@/components/ui/Card'
-import Badge from '@/components/ui/Badge'
-import { Upload, Image, Video, Sparkles, X, Plus, DollarSign, Package, Tag, Palette, Scissors, Calendar, Award, UploadCloud } from 'lucide-react'
+import { Upload, Image, Video, Sparkles, X, Plus, DollarSign, Package, Scissors, Palette, Calendar, Award, UploadCloud } from 'lucide-react'
 import { useState } from 'react'
 
 export default function CreateListingPage() {
@@ -32,20 +31,11 @@ export default function CreateListingPage() {
   })
 
   const categories = [
-    'Abayas',
-    'Hijabs & Scarves',
-    'Shalwar Kameez',
-    'Lehenga',
-    'Saree',
-    'Kurta',
-    'Thobe',
-    'Sherwani',
-    'Lawn Suits',
-    'Kids',
-    'Accessories'
+    'Abayas', 'Hijabs & Scarves', 'Shalwar Kameez', 'Lehenga', 'Saree',
+    'Kurta', 'Thobe', 'Sherwani', 'Lawn Suits', 'Kids', 'Accessories'
   ]
 
-  const subcategories = {
+  const subcategories: Record<string, string[]> = {
     'Abayas': ['Open Front', 'Closed', 'Embroidered', 'Casual', 'Formal'],
     'Hijabs & Scarves': ['Jersey', 'Chiffon', 'Satin', 'Printed', 'Instant'],
     'Shalwar Kameez': ['Casual', 'Formal', 'Embroidered', 'Lawn', 'Silk'],
@@ -64,7 +54,6 @@ export default function CreateListingPage() {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (files) {
-      // In a real app, you would upload to Cloudinary
       const newImages = Array.from(files).map(file => URL.createObjectURL(file))
       setImages([...images, ...newImages].slice(0, 8))
     }
@@ -83,10 +72,8 @@ export default function CreateListingPage() {
     }))
   }
 
-  const generateDescription = async () => {
-    // In a real app, this would call OpenRouter API
+  const generateDescription = () => {
     const aiDescription = `This beautiful ${formData.category.toLowerCase()} features ${formData.fabric ? formData.fabric.toLowerCase() + ' fabric' : 'premium quality fabric'} with ${formData.color ? formData.color.toLowerCase() + ' color' : 'elegant coloring'}. Perfect for ${formData.occasion || 'special occasions'}.`
-
     setFormData(prev => ({
       ...prev,
       description: prev.description ? prev.description + '\n\n' + aiDescription : aiDescription
@@ -95,7 +82,6 @@ export default function CreateListingPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle listing submission
     console.log('Listing data:', formData, images)
   }
 
@@ -107,22 +93,21 @@ export default function CreateListingPage() {
       <main className="min-h-screen bg-bg py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <h1 className="font-serif text-3xl text-white mb-2">Create New Listing</h1>
-            <p className="text-gold-light">List your modest fashion items for sale</p>
+            <h1 className="font-serif text-3xl text-white mb-2 tracking-heading leading-heading">Create New Listing</h1>
+            <p className="text-gold-light font-sans">List your modest fashion items for sale</p>
           </div>
 
-          {/* Mode Toggle */}
           <div className="mb-8">
             <div className="inline-flex rounded-md bg-bg-mid p-1">
               <button
                 onClick={() => setMode('simple')}
-                className={`px-6 py-2 rounded-md font-sans ${mode === 'simple' ? 'bg-gold text-bg' : 'text-white hover:bg-bg'}`}
+                className={`px-6 py-2 rounded-md font-sans transition-fluid duration-300 ${mode === 'simple' ? 'bg-gold text-bg' : 'text-white hover:bg-bg'}`}
               >
                 Simple
               </button>
               <button
                 onClick={() => setMode('advanced')}
-                className={`px-6 py-2 rounded-md font-sans ${mode === 'advanced' ? 'bg-gold text-bg' : 'text-white hover:bg-bg'}`}
+                className={`px-6 py-2 rounded-md font-sans transition-fluid duration-300 ${mode === 'advanced' ? 'bg-gold text-bg' : 'text-white hover:bg-bg'}`}
               >
                 Advanced
               </button>
@@ -131,18 +116,16 @@ export default function CreateListingPage() {
 
           <form onSubmit={handleSubmit}>
             <div className="grid lg:grid-cols-3 gap-8">
-              {/* Left Column: Images & Preview */}
               <div className="lg:col-span-2">
                 <Card className="p-6 mb-6">
                   <h2 className="font-serif text-xl text-text-dark mb-4 flex items-center gap-2">
                     <Image className="h-5 w-5" />
                     Photos & Video
                   </h2>
-                  <p className="text-text-muted text-sm mb-6">
+                  <p className="text-text-muted text-sm mb-6 font-sans">
                     Upload up to 8 photos. Add a video to increase engagement.
                   </p>
 
-                  {/* Image Upload Area */}
                   <div className="mb-6">
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
                       {images.map((image, index) => (
@@ -151,35 +134,28 @@ export default function CreateListingPage() {
                           <button
                             type="button"
                             onClick={() => removeImage(index)}
-                            className="absolute top-2 right-2 p-1 bg-black/50 rounded-full hover:bg-black/70"
+                            className="absolute top-2 right-2 p-1 bg-black/50 rounded-full hover:bg-black/70 transition-fluid duration-300"
                           >
                             <X className="h-4 w-4 text-white" />
                           </button>
                         </div>
                       ))}
                       {images.length < 8 && (
-                        <label className="aspect-square border-2 border-dashed border-border rounded-md flex flex-col items-center justify-center cursor-pointer hover:border-gold transition-colors">
+                        <label className="aspect-square border-2 border-dashed border-border rounded-md flex flex-col items-center justify-center cursor-pointer hover:border-gold transition-fluid duration-300">
                           <UploadCloud className="h-8 w-8 text-gold-light mb-2" />
                           <span className="text-sm text-gold-light font-sans">Add Photo</span>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            multiple
-                            onChange={handleImageUpload}
-                            className="hidden"
-                          />
+                          <input type="file" accept="image/*" multiple onChange={handleImageUpload} className="hidden" />
                         </label>
                       )}
                     </div>
 
-                    {/* Video Upload */}
                     <div className="mb-6">
-                      <label className="block text-sm font-medium text-text-dark font-sans mb-2">
+                      <label className="block text-sm font-medium text-text-dark font-sans mb-2 label">
                         Add Video (Optional)
                       </label>
                       <div className="border-2 border-dashed border-border rounded-md p-8 text-center">
                         <Video className="h-12 w-12 text-gold-light mx-auto mb-4" />
-                        <p className="text-text-muted mb-2">Upload a short video showcasing your item</p>
+                        <p className="text-text-muted mb-2 font-sans">Upload a short video showcasing your item</p>
                         <Button type="button" variant="outline" size="sm">
                           <Upload className="h-4 w-4 mr-2" />
                           Upload Video
@@ -188,7 +164,6 @@ export default function CreateListingPage() {
                     </div>
                   </div>
 
-                  {/* Title & Category */}
                   <div className="space-y-6">
                     <Input
                       label="Listing Title"
@@ -199,7 +174,7 @@ export default function CreateListingPage() {
                     />
 
                     <div>
-                      <label className="block text-sm font-medium text-text-dark font-sans mb-2">
+                      <label className="block text-sm font-medium text-text-dark font-sans mb-2 label">
                         Category
                       </label>
                       <select
@@ -217,7 +192,7 @@ export default function CreateListingPage() {
 
                     {formData.category && (
                       <div>
-                        <label className="block text-sm font-medium text-text-dark font-sans mb-2">
+                        <label className="block text-sm font-medium text-text-dark font-sans mb-2 label">
                           Subcategory
                         </label>
                         <select
@@ -226,16 +201,15 @@ export default function CreateListingPage() {
                           className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-sans"
                         >
                           <option value="">Select subcategory</option>
-                          {subcategories[formData.category as keyof typeof subcategories]?.map(sub => (
+                          {subcategories[formData.category]?.map(sub => (
                             <option key={sub} value={sub}>{sub}</option>
                           ))}
                         </select>
                       </div>
                     )}
 
-                    {/* Condition */}
                     <div>
-                      <label className="block text-sm font-medium text-text-dark font-sans mb-3">
+                      <label className="block text-sm font-medium text-text-dark font-sans mb-3 label">
                         Condition
                       </label>
                       <div className="flex gap-4">
@@ -244,15 +218,15 @@ export default function CreateListingPage() {
                             key={condition}
                             type="button"
                             onClick={() => setFormData({ ...formData, condition })}
-                            className={`flex-1 p-4 border rounded-md text-center ${formData.condition === condition ? 'border-gold bg-gold/10' : 'border-border hover:border-gold/50'}`}
+                            className={`flex-1 p-4 border rounded-md text-center transition-fluid duration-300 ${formData.condition === condition ? 'border-gold bg-gold/10' : 'border-border hover:border-gold/50'}`}
                           >
                             <div className="font-serif text-lg text-text-dark mb-1">
                               {condition === 'NEW' ? 'New' : condition === 'LIKE_NEW' ? 'Like New' : 'Used'}
                             </div>
                             <p className="text-sm text-text-muted font-sans">
                               {condition === 'NEW' ? 'Brand new with tags' :
-                               condition === 'LIKE_NEW' ? 'Gently used, like new' :
-                               'Pre-owned, shows wear'}
+                              condition === 'LIKE_NEW' ? 'Gently used, like new' :
+                              'Pre-owned, shows wear'}
                             </p>
                           </button>
                         ))}
@@ -261,44 +235,18 @@ export default function CreateListingPage() {
                   </div>
                 </Card>
 
-                {/* Advanced Options */}
                 {mode === 'advanced' && (
                   <Card className="p-6 mb-6">
-                    <h2 className="font-serif text-xl text-text-dark mb-6">Advanced Details</h2>
+                    <h2 className="font-serif text-xl text-text-dark mb-6 tracking-heading leading-heading">Advanced Details</h2>
                     <div className="grid md:grid-cols-2 gap-6">
-                      <Input
-                        label="Fabric"
-                        placeholder="e.g., Silk, Cotton, Crepe"
-                        value={formData.fabric}
-                        onChange={(e) => setFormData({ ...formData, fabric: e.target.value })}
-                        icon={<Scissors className="h-5 w-5" />}
-                      />
-                      <Input
-                        label="Color"
-                        placeholder="e.g., Emerald Green, Navy Blue"
-                        value={formData.color}
-                        onChange={(e) => setFormData({ ...formData, color: e.target.value })}
-                        icon={<Palette className="h-5 w-5" />}
-                      />
-                      <Input
-                        label="Occasion"
-                        placeholder="e.g., Wedding, Eid, Casual"
-                        value={formData.occasion}
-                        onChange={(e) => setFormData({ ...formData, occasion: e.target.value })}
-                        icon={<Calendar className="h-5 w-5" />}
-                      />
-                      <Input
-                        label="Brand"
-                        placeholder="e.g., Zara, Local Designer"
-                        value={formData.brand}
-                        onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-                        icon={<Award className="h-5 w-5" />}
-                      />
+                      <Input label="Fabric" placeholder="e.g., Silk, Cotton, Crepe" value={formData.fabric} onChange={(e) => setFormData({ ...formData, fabric: e.target.value })} icon={<Scissors className="h-5 w-5" />} />
+                      <Input label="Color" placeholder="e.g., Emerald Green, Navy Blue" value={formData.color} onChange={(e) => setFormData({ ...formData, color: e.target.value })} icon={<Palette className="h-5 w-5" />} />
+                      <Input label="Occasion" placeholder="e.g., Wedding, Eid, Casual" value={formData.occasion} onChange={(e) => setFormData({ ...formData, occasion: e.target.value })} icon={<Calendar className="h-5 w-5" />} />
+                      <Input label="Brand" placeholder="e.g., Zara, Local Designer" value={formData.brand} onChange={(e) => setFormData({ ...formData, brand: e.target.value })} icon={<Award className="h-5 w-5" />} />
                     </div>
 
-                    {/* Sizes */}
                     <div className="mt-6">
-                      <label className="block text-sm font-medium text-text-dark font-sans mb-3">
+                      <label className="block text-sm font-medium text-text-dark font-sans mb-3 label">
                         Available Sizes
                       </label>
                       <div className="flex flex-wrap gap-2">
@@ -307,7 +255,7 @@ export default function CreateListingPage() {
                             key={size}
                             type="button"
                             onClick={() => handleSizeToggle(size)}
-                            className={`px-4 py-2 rounded-md font-sans ${formData.sizes.includes(size) ? 'bg-gold text-bg' : 'bg-bg-light text-text-dark border border-border hover:border-gold'}`}
+                            className={`px-4 py-2 rounded-md font-sans transition-fluid duration-300 ${formData.sizes.includes(size) ? 'bg-gold text-bg' : 'bg-bg-light text-text-dark border border-border hover:border-gold'}`}
                           >
                             {size}
                           </button>
@@ -318,14 +266,13 @@ export default function CreateListingPage() {
                 )}
               </div>
 
-              {/* Right Column: Pricing & Actions */}
               <div>
                 <Card className="p-6 mb-6 sticky top-8">
-                  <h2 className="font-serif text-xl text-text-dark mb-6">Pricing & Details</h2>
+                  <h2 className="font-serif text-xl text-text-dark mb-6 tracking-heading leading-heading">Pricing & Details</h2>
 
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-sm font-medium text-text-dark font-sans mb-2 flex items-center gap-2">
+                      <label className="block text-sm font-medium text-text-dark font-sans mb-2 flex items-center gap-2 label">
                         <DollarSign className="h-4 w-4" />
                         Price
                       </label>
@@ -345,7 +292,7 @@ export default function CreateListingPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-text-dark font-sans mb-2 flex items-center gap-2">
+                      <label className="block text-sm font-medium text-text-dark font-sans mb-2 flex items-center gap-2 label">
                         <Package className="h-4 w-4" />
                         Shipping Cost
                       </label>
@@ -365,7 +312,7 @@ export default function CreateListingPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-text-dark font-sans mb-2">
+                      <label className="block text-sm font-medium text-text-dark font-sans mb-2 label">
                         Quantity Available
                       </label>
                       <input
@@ -378,10 +325,9 @@ export default function CreateListingPage() {
                       />
                     </div>
 
-                    {/* Description with AI */}
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <label className="block text-sm font-medium text-text-dark font-sans">
+                        <label className="block text-sm font-medium text-text-dark font-sans label">
                           Description
                         </label>
                         <Button
@@ -408,7 +354,7 @@ export default function CreateListingPage() {
                     {mode === 'advanced' && (
                       <>
                         <div>
-                          <label className="block text-sm font-medium text-text-dark font-sans mb-2">
+                          <label className="block text-sm font-medium text-text-dark font-sans mb-2 label">
                             Dispatch Time (Days)
                           </label>
                           <select
@@ -424,7 +370,7 @@ export default function CreateListingPage() {
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-text-dark font-sans mb-2">
+                          <label className="block text-sm font-medium text-text-dark font-sans mb-2 label">
                             Return Policy (Days)
                           </label>
                           <select
@@ -441,7 +387,6 @@ export default function CreateListingPage() {
                       </>
                     )}
 
-                    {/* Preview & Submit */}
                     <div className="pt-6 border-t border-border">
                       <div className="mb-6">
                         <h3 className="font-serif text-lg text-text-dark mb-3">Preview</h3>

@@ -4,12 +4,14 @@ interface BadgeProps {
   children: ReactNode
   variant?: 'default' | 'gold' | 'success' | 'warning' | 'error'
   size?: 'sm' | 'md'
+  perpetual?: boolean
 }
 
 export default function Badge({
   children,
   variant = 'default',
-  size = 'md'
+  size = 'md',
+  perpetual = false
 }: BadgeProps) {
   const variantClasses = {
     default: 'bg-bg-mid text-white',
@@ -24,9 +26,13 @@ export default function Badge({
     md: 'px-3 py-1 text-sm'
   }
 
+  const baseClasses = 'inline-flex items-center rounded-md font-sans font-medium transition-fluid duration-300'
+  const hoverClass = 'hover:-translate-y-[1px] hover:shadow-md'
+  const perpetualClass = perpetual ? 'animate-pulse' : ''
+
   return (
     <span
-      className={`inline-flex items-center rounded-md font-sans font-medium ${variantClasses[variant]} ${sizeClasses[size]}`}
+      className={`${baseClasses} ${hoverClass} ${variantClasses[variant]} ${sizeClasses[size]} ${perpetualClass}`}
     >
       {children}
     </span>

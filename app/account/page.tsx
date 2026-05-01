@@ -84,46 +84,10 @@ export default function AccountPage() {
   ]
 
   const wishlistItems = [
-    {
-      id: '1',
-      title: 'Designer Abaya with Crystal Work',
-      price: 299.99,
-      shippingCost: 15.99,
-      images: ['/placeholder.jpg'],
-      condition: 'NEW' as const,
-      sellerName: 'LuxeModesty',
-      category: 'Abayas'
-    },
-    {
-      id: '2',
-      title: 'Hand-Embroidered Saree',
-      price: 249.99,
-      shippingCost: 12.99,
-      images: ['/placeholder.jpg'],
-      condition: 'NEW' as const,
-      sellerName: 'SareeQueen',
-      category: 'Saree'
-    },
-    {
-      id: '3',
-      title: 'Men\'s Formal Sherwani',
-      price: 399.99,
-      shippingCost: 25.99,
-      images: ['/placeholder.jpg'],
-      condition: 'LIKE_NEW' as const,
-      sellerName: 'RoyalAttire',
-      category: 'Sherwani'
-    },
-    {
-      id: '4',
-      title: 'Kids Eid Outfit Set',
-      price: 89.99,
-      shippingCost: 8.99,
-      images: ['/placeholder.jpg'],
-      condition: 'NEW' as const,
-      sellerName: 'LittleModesty',
-      category: 'Kids'
-    }
+    { id: '1', title: 'Designer Abaya with Crystal Work', price: 299.99, shippingCost: 15.99, images: ['/placeholder.jpg'], condition: 'NEW' as const, sellerName: 'LuxeModesty', category: 'Abayas' },
+    { id: '2', title: 'Hand-Embroidered Saree', price: 249.99, shippingCost: 12.99, images: ['/placeholder.jpg'], condition: 'NEW' as const, sellerName: 'SareeQueen', category: 'Saree' },
+    { id: '3', title: "Men's Formal Sherwani", price: 399.99, shippingCost: 25.99, images: ['/placeholder.jpg'], condition: 'LIKE_NEW' as const, sellerName: 'RoyalAttire', category: 'Sherwani' },
+    { id: '4', title: 'Kids Eid Outfit Set', price: 89.99, shippingCost: 8.99, images: ['/placeholder.jpg'], condition: 'NEW' as const, sellerName: 'LittleModesty', category: 'Kids' }
   ]
 
   const following = [
@@ -134,19 +98,8 @@ export default function AccountPage() {
   ]
 
   const notificationSettings = {
-    email: {
-      orderUpdates: true,
-      newListings: true,
-      priceDrops: false,
-      promotions: true,
-      newsletter: true
-    },
-    push: {
-      orderUpdates: true,
-      newMessages: true,
-      wishlistUpdates: false,
-      followingActivity: true
-    }
+    email: { orderUpdates: true, newListings: true, priceDrops: false, promotions: true, newsletter: true },
+    push: { orderUpdates: true, newMessages: true, wishlistUpdates: false, followingActivity: true }
   }
 
   return (
@@ -157,8 +110,8 @@ export default function AccountPage() {
       <main className="min-h-screen bg-bg py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <h1 className="font-serif text-3xl text-white mb-2">My Account</h1>
-            <p className="text-gold-light">Manage your profile, orders, and preferences</p>
+            <h1 className="font-serif text-3xl text-white mb-2 tracking-heading leading-heading">My Account</h1>
+            <p className="text-gold-light font-sans">Manage your profile, orders, and preferences</p>
           </div>
 
           <div className="grid lg:grid-cols-4 gap-8">
@@ -187,8 +140,8 @@ export default function AccountPage() {
                   ].map(item => (
                     <button
                       key={item.id}
-                      onClick={() => setActiveTab(item.id as any)}
-                      className={`w-full flex items-center justify-between p-3 rounded-md font-sans ${activeTab === item.id ? 'bg-gold/10 text-gold' : 'text-text-dark hover:bg-bg-mid/10'}`}
+                      onClick={() => setActiveTab(item.id as typeof activeTab)}
+                      className={`w-full flex items-center justify-between p-3 rounded-md font-sans transition-fluid duration-300 ${activeTab === item.id ? 'bg-gold/10 text-gold' : 'text-text-dark hover:bg-bg-mid/10'}`}
                     >
                       <div className="flex items-center gap-3">
                         <item.icon className="h-4 w-4" />
@@ -202,7 +155,7 @@ export default function AccountPage() {
                 </div>
 
                 <div className="mt-6 pt-6 border-t border-border">
-                  <button className="w-full flex items-center gap-3 p-3 text-red-500 hover:bg-red-50 rounded-md font-sans">
+                  <button className="w-full flex items-center gap-3 p-3 text-red-500 hover:bg-red-50 rounded-md font-sans transition-fluid duration-300">
                     <LogOut className="h-4 w-4" />
                     Sign Out
                   </button>
@@ -217,39 +170,23 @@ export default function AccountPage() {
                 <div className="space-y-6">
                   <Card className="p-6">
                     <div className="flex items-center justify-between mb-6">
-                      <h2 className="font-serif text-xl text-text-dark">Personal Information</h2>
+                      <h2 className="font-serif text-xl text-text-dark tracking-heading leading-heading">Personal Information</h2>
                       <Button variant="outline" size="sm">
                         <Edit className="h-4 w-4 mr-2" />
                         Edit
                       </Button>
                     </div>
                     <div className="grid md:grid-cols-2 gap-6">
-                      <Input
-                        label="Full Name"
-                        value={user.name}
-                        readOnly
-                      />
-                      <Input
-                        label="Email Address"
-                        value={user.email}
-                        readOnly
-                      />
-                      <Input
-                        label="Phone Number"
-                        value="(555) 123-4567"
-                        readOnly
-                      />
-                      <Input
-                        label="Date of Birth"
-                        value="January 15, 1990"
-                        readOnly
-                      />
+                      <Input label="Full Name" value={user.name} readOnly />
+                      <Input label="Email Address" value={user.email} readOnly />
+                      <Input label="Phone Number" value="(555) 123-4567" readOnly />
+                      <Input label="Date of Birth" value="January 15, 1990" readOnly />
                     </div>
                   </Card>
 
                   <Card className="p-6">
                     <div className="flex items-center justify-between mb-6">
-                      <h2 className="font-serif text-xl text-text-dark flex items-center gap-2">
+                      <h2 className="font-serif text-xl text-text-dark tracking-heading leading-heading flex items-center gap-2">
                         <MapPin className="h-5 w-5" />
                         Saved Addresses
                       </h2>
@@ -262,7 +199,7 @@ export default function AccountPage() {
                       {addresses.map(address => (
                         <div
                           key={address.id}
-                          className={`p-4 border rounded-md ${address.isDefault ? 'border-gold bg-gold/5' : 'border-border'}`}
+                          className={`p-4 border rounded-md transition-fluid duration-300 ${address.isDefault ? 'border-gold bg-gold/5' : 'border-border hover:border-gold/50'}`}
                         >
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-2">
@@ -290,14 +227,14 @@ export default function AccountPage() {
               {/* Orders Tab */}
               {activeTab === 'orders' && (
                 <Card className="p-6">
-                  <h2 className="font-serif text-xl text-text-dark mb-6">Order History</h2>
+                  <h2 className="font-serif text-xl text-text-dark mb-6 tracking-heading leading-heading">Order History</h2>
                   <div className="space-y-6">
-                    {orders.map(order => (
+                    {orders.map((order) => (
                       <div key={order.id} className="border border-border rounded-md overflow-hidden">
                         <div className="bg-bg-mid p-4 flex items-center justify-between">
                           <div>
                             <p className="font-sans font-medium text-white">Order #{order.id}</p>
-                            <p className="text-sm text-gold-light font-sans">{order.date} • {order.items} item{order.items > 1 ? 's' : ''}</p>
+                            <p className="text-sm text-gold-light font-sans">{order.date} &bull; {order.items} item{order.items > 1 ? 's' : ''}</p>
                           </div>
                           <div className="text-right">
                             <p className="font-serif text-xl text-gold">${order.total}</p>
@@ -315,7 +252,7 @@ export default function AccountPage() {
                             <ul className="space-y-1">
                               {order.itemsList.map((item, index) => (
                                 <li key={index} className="text-sm text-text-muted font-sans">
-                                  • {item.name} ({item.seller})
+                                  &bull; {item.name} ({item.seller})
                                 </li>
                               ))}
                             </ul>
@@ -347,14 +284,14 @@ export default function AccountPage() {
               {activeTab === 'wishlist' && (
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <h2 className="font-serif text-xl text-text-dark">My Wishlist</h2>
+                    <h2 className="font-serif text-xl text-text-dark tracking-heading leading-heading">My Wishlist</h2>
                     <div className="flex gap-2">
                       <Button variant="outline" size="sm">Share List</Button>
                       <Button variant="outline" size="sm">Clear All</Button>
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {wishlistItems.map(item => (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {wishlistItems.map((item) => (
                       <ProductCard key={item.id} {...item} isWishlisted={true} />
                     ))}
                   </div>
@@ -364,9 +301,9 @@ export default function AccountPage() {
               {/* Following Tab */}
               {activeTab === 'following' && (
                 <Card className="p-6">
-                  <h2 className="font-serif text-xl text-text-dark mb-6">Shops You Follow</h2>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {following.map(shop => (
+                  <h2 className="font-serif text-xl text-text-dark mb-6 tracking-heading leading-heading">Shops You Follow</h2>
+                  <div className="grid md:grid-cols-2 gap-8">
+                    {following.map((shop) => (
                       <div key={shop.id} className="border border-border rounded-md p-4">
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-3">
@@ -392,12 +329,8 @@ export default function AccountPage() {
                           </Button>
                         </div>
                         <div className="flex gap-2">
-                          <Button variant="ghost" size="sm" fullWidth>
-                            View Shop
-                          </Button>
-                          <Button variant="ghost" size="sm" fullWidth>
-                            Message
-                          </Button>
+                          <Button variant="ghost" size="sm" fullWidth>View Shop</Button>
+                          <Button variant="ghost" size="sm" fullWidth>Message</Button>
                         </div>
                       </div>
                     ))}
@@ -408,7 +341,7 @@ export default function AccountPage() {
               {/* Notifications Tab */}
               {activeTab === 'notifications' && (
                 <Card className="p-6">
-                  <h2 className="font-serif text-xl text-text-dark mb-6">Notification Preferences</h2>
+                  <h2 className="font-serif text-xl text-text-dark mb-6 tracking-heading leading-heading">Notification Preferences</h2>
                   <div className="space-y-8">
                     <div>
                       <h3 className="font-serif text-lg text-text-dark mb-4 flex items-center gap-2">
@@ -422,8 +355,7 @@ export default function AccountPage() {
                               {key.replace(/([A-Z])/g, ' $1').toLowerCase()}
                             </span>
                             <button
-                              onClick={() => {/* Toggle setting */}}
-                              className={`relative inline-flex h-6 w-11 items-center rounded-full ${value ? 'bg-gold' : 'bg-bg-mid'}`}
+                              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-fluid duration-300 ${value ? 'bg-gold' : 'bg-bg-mid'}`}
                             >
                               <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${value ? 'translate-x-6' : 'translate-x-1'}`} />
                             </button>
@@ -441,8 +373,7 @@ export default function AccountPage() {
                               {key.replace(/([A-Z])/g, ' $1').toLowerCase()}
                             </span>
                             <button
-                              onClick={() => {/* Toggle setting */}}
-                              className={`relative inline-flex h-6 w-11 items-center rounded-full ${value ? 'bg-gold' : 'bg-bg-mid'}`}
+                              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-fluid duration-300 ${value ? 'bg-gold' : 'bg-bg-mid'}`}
                             >
                               <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${value ? 'translate-x-6' : 'translate-x-1'}`} />
                             </button>
@@ -457,7 +388,7 @@ export default function AccountPage() {
               {/* Settings Tab */}
               {activeTab === 'settings' && (
                 <Card className="p-6">
-                  <h2 className="font-serif text-xl text-text-dark mb-6">Account Settings</h2>
+                  <h2 className="font-serif text-xl text-text-dark mb-6 tracking-heading leading-heading">Account Settings</h2>
                   <div className="space-y-8">
                     <div>
                       <h3 className="font-serif text-lg text-text-dark mb-4 flex items-center gap-2">
@@ -469,15 +400,15 @@ export default function AccountPage() {
                           <button
                             key={themeOption}
                             onClick={() => setTheme(themeOption)}
-                            className={`p-4 border rounded-md text-center ${theme === themeOption ? 'border-gold bg-gold/10' : 'border-border hover:border-gold/50'}`}
+                            className={`p-4 border rounded-md text-center transition-fluid duration-300 ${theme === themeOption ? 'border-gold bg-gold/10' : 'border-border hover:border-gold/50'}`}
                           >
                             <div className="font-serif text-lg text-text-dark mb-1 capitalize">
                               {themeOption}
                             </div>
                             <p className="text-sm text-text-muted font-sans">
                               {themeOption === 'light' ? 'Light mode' :
-                               themeOption === 'dark' ? 'Dark mode' :
-                               'Follow system'}
+                              themeOption === 'dark' ? 'Dark mode' :
+                              'Follow system'}
                             </p>
                           </button>
                         ))}
@@ -517,7 +448,7 @@ export default function AccountPage() {
                       <h3 className="font-serif text-lg text-text-dark mb-4">Language & Region</h3>
                       <div className="grid md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-sm font-medium text-text-dark font-sans mb-2">
+                          <label className="block text-sm font-medium text-text-dark font-sans mb-2 label">
                             Language
                           </label>
                           <select className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-sans">
@@ -529,13 +460,13 @@ export default function AccountPage() {
                           </select>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-text-dark font-sans mb-2">
+                          <label className="block text-sm font-medium text-text-dark font-sans mb-2 label">
                             Currency
                           </label>
                           <select className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-sans">
                             <option>USD ($)</option>
-                            <option>EUR (€)</option>
-                            <option>GBP (£)</option>
+                            <option>EUR (&euro;)</option>
+                            <option>GBP (&pound;)</option>
                             <option>CAD ($)</option>
                             <option>AUD ($)</option>
                           </select>

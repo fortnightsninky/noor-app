@@ -15,13 +15,13 @@ export default function Button({
   className = '',
   ...props
 }: ButtonProps) {
-  const baseClasses = 'inline-flex items-center justify-center font-sans font-medium transition-all duration-200 rounded-md focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg'
+  const baseClasses = 'inline-flex items-center justify-center font-sans font-medium transition-fluid duration-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg'
 
   const variantClasses = {
-    primary: 'bg-gold text-bg hover:bg-gold-light shadow-md hover:shadow-lg',
-    secondary: 'bg-bg-light text-text-dark hover:bg-bg-mid hover:text-white',
-    outline: 'border border-gold text-gold bg-transparent hover:bg-gold/10',
-    ghost: 'text-gold hover:bg-gold/10'
+    primary: 'bg-gold text-bg hover:bg-gold-light/90 hover:-translate-y-[2px] hover:shadow-hover active:-translate-y-[0] active:shadow-md',
+    secondary: 'bg-bg-light text-text-dark hover:bg-bg-mid/90 hover:text-white hover:-translate-y-[2px] hover:shadow-hover active:-translate-y-[0] active:shadow-md',
+    outline: 'border border-gold text-gold bg-transparent hover:bg-gold/15 hover:-translate-y-[2px] hover:shadow-hover active:-translate-y-[0] active:shadow',
+    ghost: 'text-gold hover:bg-gold/15 hover:-translate-y-[2px] hover:shadow-hover active:-translate-y-[0] active:shadow'
   }
 
   const sizeClasses = {
