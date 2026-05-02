@@ -9,9 +9,14 @@ import Input from '@/components/ui/Input'
 import Badge from '@/components/ui/Badge'
 import { ShoppingCart, Truck, Shield, CreditCard, Apple, MapPin, Plus } from 'lucide-react'
 import { useState } from 'react'
+import Link from 'next/link'
+import { useToast } from '@/components/ui/Toast'
 
 export default function CheckoutPage() {
+  const { toast } = useToast()
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'apple' | 'google'>('card')
+  const [selectedAddressId, setSelectedAddressId] = useState('1')
+  const [showNewAddress, setShowNewAddress] = useState(false)
   const [address, setAddress] = useState({
     fullName: '',
     street: '',
@@ -39,7 +44,7 @@ export default function CheckoutPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Checkout:', { address, paymentMethod, total })
+    toast(`Order placed! Total: $${total.toFixed(2)}`, 'success')
   }
 
   return (
@@ -70,8 +75,8 @@ export default function CheckoutPage() {
                       {savedAddresses.map(addr => (
                         <div
                           key={addr.id}
-                          className={`p-4 border rounded-md cursor-pointer transition-fluid duration-300 ${addr.isDefault ? 'border-gold bg-gold/5' : 'border-border hover:border-gold/50'}`}
-                          onClick={() => {}}
+                          className={`p-4 border rounded-md cursor-pointer transition-fluid duration-300 ${selectedAddressId === addr.id ? 'border-gold bg-gold/5' : 'border-border hover:border-gold/50'}`}
+                          onClick={() => setSelectedAddressId(addr.id)}
                         >
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2">
@@ -80,7 +85,7 @@ export default function CheckoutPage() {
                                 <Badge variant="gold" size="sm">Default</Badge>
                               )}
                             </div>
-                            <button type="button" className="text-sm text-gold hover:underline font-sans">
+                            <button type="button" onClick={(e) => { e.stopPropagation(); toast('Edit address coming soon', 'info') }} className="text-sm text-gold hover:underline font-sans">
                               Edit
                             </button>
                           </div>
@@ -89,24 +94,27 @@ export default function CheckoutPage() {
                       ))}
                       <button
                         type="button"
+                        onClick={() => setShowNewAddress(!showNewAddress)}
                         className="w-full p-4 border border-dashed border-border rounded-md text-center hover:border-gold transition-fluid duration-300"
                       >
                         <div className="flex items-center justify-center gap-2 text-gold">
                           <Plus className="h-4 w-4" />
-                          <span className="font-sans">Add New Address</span>
+                          <span className="font-sans">{showNewAddress ? 'Cancel New Address' : 'Add New Address'}</span>
                         </div>
                       </button>
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <Input label="Full Name" value={address.fullName} onChange={(e) => setAddress({ ...address, fullName: e.target.value })} required />
-                    <Input label="Phone Number" type="tel" value={address.phone} onChange={(e) => setAddress({ ...address, phone: e.target.value })} required />
-                    <Input label="Street Address" value={address.street} onChange={(e) => setAddress({ ...address, street: e.target.value })} required />
-                    <Input label="City" value={address.city} onChange={(e) => setAddress({ ...address, city: e.target.value })} required />
-                    <Input label="State" value={address.state} onChange={(e) => setAddress({ ...address, state: e.target.value })} required />
-                    <Input label="ZIP Code" value={address.zipCode} onChange={(e) => setAddress({ ...address, zipCode: e.target.value })} required />
-                  </div>
+                  {(showNewAddress || selectedAddressId === 'new') && (
+                    <div className="grid md:grid-cols-2 gap-4 mb-6 p-4 border border-gold/30 rounded-md bg-gold/5">
+                      <Input label="Full Name" value={address.fullName} onChange={(e) => setAddress({ ...address, fullName: e.target.value })} required />
+                      <Input label="Phone Number" type="tel" value={address.phone} onChange={(e) => setAddress({ ...address, phone: e.target.value })} required />
+                      <Input label="Street Address" value={address.street} onChange={(e) => setAddress({ ...address, street: e.target.value })} required />
+                      <Input label="City" value={address.city} onChange={(e) => setAddress({ ...address, city: e.target.value })} required />
+                      <Input label="State" value={address.state} onChange={(e) => setAddress({ ...address, state: e.target.value })} required />
+                      <Input label="ZIP Code" value={address.zipCode} onChange={(e) => setAddress({ ...address, zipCode: e.target.value })} required />
+                    </div>
+                  )}
                 </Card>
 
                 {/* Payment Method */}
@@ -261,7 +269,13 @@ export default function CheckoutPage() {
                     Place Order &bull; ${total.toFixed(2)}
                   </Button>
 
-                  <div className="mt-6 text-center">
+                  <div className="mt-4 text-center">
+                    <Link href="/browse" className="text-sm text-gold hover:underline font-sans">
+                      Continue Shopping
+                    </Link>
+                  </div>
+
+                  <div className="mt-4 text-center">
                     <p className="text-xs text-text-muted font-sans">
                       By placing your order, you agree to our{' '}
                       <a href="/terms" className="text-gold hover:underline transition-fluid duration-300">

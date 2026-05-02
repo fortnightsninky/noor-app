@@ -1,14 +1,19 @@
+"use client"
+
 import AnnouncementBar from '@/components/layout/AnnouncementBar'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import Button from '@/components/ui/Button'
-import Badge from '@/components/ui/Badge'
 import Card from '@/components/ui/Card'
+import Badge from '@/components/ui/Badge'
 import ProductCard from '@/components/listing/ProductCard'
 import Link from 'next/link'
 import { Heart, Share2, Star, Check, Truck, Shield, Clock } from 'lucide-react'
+import { useState } from 'react'
+import { useToast } from '@/components/ui/Toast'
 
 export default function ListingPage() {
+  const { toast, confirm } = useToast()
   const listing = {
     id: '1',
     title: 'Embroidered Moroccan Kaftan Dress with Gold Thread',
@@ -53,47 +58,17 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
   ]
 
   const relatedListings = [
-    {
-      id: '2',
-      title: 'Handwoven Silk Hijab Set',
-      price: 89.99,
-      shippingCost: 5.99,
-      images: ['/placeholder.jpg'],
-      condition: 'NEW' as const,
-      sellerName: 'SilkThreads',
-      category: 'Hijabs & Scarves'
-    },
-    {
-      id: '3',
-      title: 'Traditional Pakistani Shalwar Kameez',
-      price: 149.99,
-      shippingCost: 12.99,
-      images: ['/placeholder.jpg'],
-      condition: 'LIKE_NEW' as const,
-      sellerName: 'DesiVibes',
-      category: 'Shalwar Kameez'
-    },
-    {
-      id: '4',
-      title: 'Gold Embroidered Abaya',
-      price: 179.99,
-      shippingCost: 9.99,
-      images: ['/placeholder.jpg'],
-      condition: 'NEW' as const,
-      sellerName: 'ZahraDesigns',
-      category: 'Abayas'
-    },
-    {
-      id: '5',
-      title: 'Casual Moroccan Dress',
-      price: 79.99,
-      shippingCost: 7.99,
-      images: ['/placeholder.jpg'],
-      condition: 'NEW' as const,
-      sellerName: 'ZahraDesigns',
-      category: 'Abayas'
-    }
+    { id: '2', title: 'Handwoven Silk Hijab Set', price: 89.99, shippingCost: 5.99, images: ['/placeholder.jpg'], condition: 'NEW' as const, sellerName: 'SilkThreads', category: 'Hijabs & Scarves' },
+    { id: '3', title: 'Traditional Pakistani Shalwar Kameez', price: 149.99, shippingCost: 12.99, images: ['/placeholder.jpg'], condition: 'LIKE_NEW' as const, sellerName: 'DesiVibes', category: 'Shalwar Kameez' },
+    { id: '4', title: 'Gold Embroidered Abaya', price: 179.99, shippingCost: 9.99, images: ['/placeholder.jpg'], condition: 'NEW' as const, sellerName: 'ZahraDesigns', category: 'Abayas' },
+    { id: '5', title: 'Casual Moroccan Dress', price: 79.99, shippingCost: 7.99, images: ['/placeholder.jpg'], condition: 'NEW' as const, sellerName: 'ZahraDesigns', category: 'Abayas' }
   ]
+
+  const [selectedSize, setSelectedSize] = useState<string | null>(null)
+  const [quantity, setQuantity] = useState(1)
+  const [isWishlisted, setIsWishlisted] = useState(false)
+  const [isFollowing, setIsFollowing] = useState(false)
+  const [activeDetailTab, setActiveDetailTab] = useState('Description')
 
   return (
     <>
@@ -155,7 +130,8 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
                     {listing.sizes.map((size) => (
                       <button
                         key={size}
-                        className="px-4 py-2 border border-border rounded-md text-white hover:border-gold hover:bg-gold/10 transition-fluid duration-300 will-transform hover:-translate-y-[1px] hover:shadow-md font-sans"
+                        onClick={() => setSelectedSize(size)}
+                        className={`px-4 py-2 border rounded-md text-white transition-fluid duration-300 will-transform hover:-translate-y-[1px] hover:shadow-md font-sans ${selectedSize === size ? 'border-gold bg-gold/10' : 'border-border hover:border-gold'}`}
                       >
                         {size}
                       </button>
@@ -167,9 +143,9 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
                 <div className="mb-8">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="flex items-center border border-border rounded-md">
-                      <button className="px-3 py-2 text-white hover:bg-bg-mid transition-fluid duration-300 will-transform hover:-translate-y-[1px]">-</button>
-                      <span className="px-4 py-2 text-white border-x border-border font-sans">1</span>
-                      <button className="px-3 py-2 text-white hover:bg-bg-mid transition-fluid duration-300 will-transform hover:-translate-y-[1px]">+</button>
+                      <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-3 py-2 text-white hover:bg-bg-mid transition-fluid duration-300 will-transform hover:-translate-y-[1px]">-</button>
+                      <span className="px-4 py-2 text-white border-x border-border font-sans">{quantity}</span>
+                      <button onClick={() => setQuantity(Math.min(listing.quantity, quantity + 1))} className="px-3 py-2 text-white hover:bg-bg-mid transition-fluid duration-300 will-transform hover:-translate-y-[1px]">+</button>
                     </div>
                     <p className="text-gold-light/80 text-sm font-sans">{listing.quantity} available</p>
                   </div>
@@ -185,10 +161,10 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
                         Buy Now
                       </Button>
                     </Link>
-                    <button className="p-3 border border-border rounded-md text-white hover:bg-bg-mid hover:border-gold/50 transition-fluid duration-300 will-transform hover:-translate-y-[1px] hover:shadow-md">
-                      <Heart className="h-5 w-5" />
+                    <button onClick={() => setIsWishlisted(!isWishlisted)} aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'} className={`p-3 border rounded-md transition-fluid duration-300 will-transform hover:-translate-y-[1px] hover:shadow-md ${isWishlisted ? 'border-red-400 bg-red-500/10' : 'border-border hover:border-gold/50'}`}>
+                      <Heart className={`h-5 w-5 ${isWishlisted ? 'fill-red-400 text-red-400' : 'text-white'}`} />
                     </button>
-                    <button className="p-3 border border-border rounded-md text-white hover:bg-bg-mid hover:border-gold/50 transition-fluid duration-300 will-transform hover:-translate-y-[1px] hover:shadow-md">
+                    <button onClick={() => navigator.clipboard?.writeText(window.location.href)} aria-label="Share listing" className="p-3 border border-border rounded-md text-white hover:bg-bg-mid hover:border-gold/50 transition-fluid duration-300 will-transform hover:-translate-y-[1px] hover:shadow-md">
                       <Share2 className="h-5 w-5" />
                     </button>
                   </div>
@@ -215,20 +191,14 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
                         <span>{listing.responseRate}% response</span>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm" className="hover:-translate-y-[1px] hover:shadow-md focus:-translate-y-[1px] focus:shadow-md focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg">
-                      Follow
+                    <Button variant={isFollowing ? 'outline' : 'primary'} size="sm" onClick={() => setIsFollowing(!isFollowing)} className="hover:-translate-y-[1px] hover:shadow-md focus:-translate-y-[1px] focus:shadow-md focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg">
+                      {isFollowing ? 'Following' : 'Follow'}
                     </Button>
                   </div>
                   <div className="flex gap-4">
-                    <button className="text-sm text-gold hover:underline font-sans transition-fluid duration-300">
-                      View Shop
-                    </button>
-                    <button className="text-sm text-gold hover:underline font-sans transition-fluid duration-300">
-                      Message Seller
-                    </button>
-                    <button className="text-sm text-red-500 hover:underline font-sans ml-auto transition-fluid duration-300">
-                      Report Listing
-                    </button>
+                    <Link href="/browse" className="text-sm text-gold hover:underline font-sans transition-fluid duration-300">View Shop</Link>
+                    <button onClick={() => toast('Messaging coming soon', 'info')} className="text-sm text-gold hover:underline font-sans transition-fluid duration-300">Message Seller</button>
+                    <button onClick={async () => { if (await confirm('Report this listing?')) toast('Report submitted', 'success') }} className="text-sm text-red-500 hover:underline font-sans ml-auto transition-fluid duration-300">Report Listing</button>
                   </div>
                 </Card>
 
@@ -258,7 +228,8 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
                 {['Description', 'Size & Fit', 'Shipping', 'Seller Policy'].map((tab) => (
                   <button
                     key={tab}
-                    className={`pb-3 font-sans font-medium transition-fluid duration-300 ${tab === 'Description' ? 'text-gold border-b-2 border-gold' : 'text-gold-light/80 hover:text-gold'}`}
+                    onClick={() => setActiveDetailTab(tab)}
+                    className={`pb-3 font-sans font-medium transition-fluid duration-300 ${activeDetailTab === tab ? 'text-gold border-b-2 border-gold' : 'text-gold-light/80 hover:text-gold'}`}
                   >
                     {tab}
                   </button>
@@ -267,27 +238,51 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
             </div>
 
             <div className="py-8">
-              <div className="prose prose-invert max-w-none">
-                <p className="text-white/90 whitespace-pre-line font-sans leading-relaxed">{listing.description}</p>
-                <div className="grid grid-cols-2 gap-6 mt-8">
-                  <div>
-                    <p className="label text-gold-light mb-2">Fabric</p>
-                    <p className="text-white font-sans">{listing.fabric}</p>
-                  </div>
-                  <div>
-                    <p className="label text-gold-light mb-2">Color</p>
-                    <p className="text-white font-sans">{listing.color}</p>
-                  </div>
-                  <div>
-                    <p className="label text-gold-light mb-2">Occasion</p>
-                    <p className="text-white font-sans">{listing.occasion}</p>
-                  </div>
-                  <div>
-                    <p className="label text-gold-light mb-2">Brand</p>
-                    <p className="text-white font-sans">{listing.brand}</p>
+              {activeDetailTab === 'Description' && (
+                <div className="prose prose-invert max-w-none">
+                  <p className="text-white/90 whitespace-pre-line font-sans leading-relaxed">{listing.description}</p>
+                  <div className="grid grid-cols-2 gap-6 mt-8">
+                    <div>
+                      <p className="label text-gold-light mb-2">Fabric</p>
+                      <p className="text-white font-sans">{listing.fabric}</p>
+                    </div>
+                    <div>
+                      <p className="label text-gold-light mb-2">Color</p>
+                      <p className="text-white font-sans">{listing.color}</p>
+                    </div>
+                    <div>
+                      <p className="label text-gold-light mb-2">Occasion</p>
+                      <p className="text-white font-sans">{listing.occasion}</p>
+                    </div>
+                    <div>
+                      <p className="label text-gold-light mb-2">Brand</p>
+                      <p className="text-white font-sans">{listing.brand}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
+              {activeDetailTab === 'Size & Fit' && (
+                <div className="text-white/90 font-sans">
+                  <p>Available sizes: {listing.sizes.join(', ')}</p>
+                  <p className="mt-4">This item runs true to size. For the best fit, we recommend ordering your usual size.</p>
+                </div>
+              )}
+              {activeDetailTab === 'Shipping' && (
+                <div className="text-white/90 font-sans">
+                  <p>Shipping cost: ${listing.shippingCost.toFixed(2)}</p>
+                  <p className="mt-4">Standard shipping: 5-7 business days</p>
+                  <p className="mt-2">Express shipping: 2-3 business days (additional fee)</p>
+                  <p className="mt-4">Free returns within 14 days of delivery.</p>
+                </div>
+              )}
+              {activeDetailTab === 'Seller Policy' && (
+                <div className="text-white/90 font-sans">
+                  <p>Returns accepted within 14 days of delivery.</p>
+                  <p className="mt-4">Item must be in original condition with tags attached.</p>
+                  <p className="mt-2">Buyer is responsible for return shipping costs.</p>
+                  <p className="mt-4">Refunds are processed within 3-5 business days after receiving the returned item.</p>
+                </div>
+              )}
             </div>
           </div>
 
@@ -337,8 +332,8 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
           <div className="mt-16">
             <h2 className="font-serif text-2xl text-white mb-8 tracking-heading leading-heading">More from {listing.sellerName}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {relatedListings.filter(l => l.sellerName === listing.sellerName).map((listing) => (
-                <ProductCard key={listing.id} {...listing} className="hover:-translate-y-[3px] hover:shadow-md transition-fluid duration-300 will-transform" />
+              {relatedListings.filter(l => l.sellerName === listing.sellerName).map((item) => (
+                <ProductCard key={item.id} {...item} className="hover:-translate-y-[3px] hover:shadow-md transition-fluid duration-300 will-transform" />
               ))}
             </div>
           </div>
@@ -347,8 +342,8 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
           <div className="mt-16">
             <h2 className="font-serif text-2xl text-white mb-8 tracking-heading leading-heading">You may also like</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {relatedListings.filter(l => l.sellerName !== listing.sellerName).map((listing) => (
-                <ProductCard key={listing.id} {...listing} className="hover:-translate-y-[3px] hover:shadow-md transition-fluid duration-300 will-transform" />
+              {relatedListings.filter(l => l.sellerName !== listing.sellerName).map((item) => (
+                <ProductCard key={item.id} {...item} className="hover:-translate-y-[3px] hover:shadow-md transition-fluid duration-300 will-transform" />
               ))}
             </div>
           </div>

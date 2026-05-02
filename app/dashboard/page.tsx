@@ -8,13 +8,26 @@ import Card from '@/components/ui/Card'
 import Badge from '@/components/ui/Badge'
 import ProductCard from '@/components/listing/ProductCard'
 import Link from 'next/link'
-import { TrendingUp, Package, DollarSign, Users, ShoppingBag, Settings, Upload, MoreVertical, Edit, Pause, Trash2, Copy, BarChart3, CreditCard, Target, Plus, Umbrella } from 'lucide-react'
+import { TrendingUp, Package, DollarSign, ShoppingBag, Upload, MoreVertical, Edit, Pause, Trash2, Copy, BarChart3, CreditCard, Target, Plus, Umbrella } from 'lucide-react'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useToast } from '@/components/ui/Toast'
+
+const initialListings = [
+  { id: '1', title: 'Embroidered Moroccan Kaftan Dress', price: 129.99, shippingCost: 8.99, images: ['/placeholder.jpg'], condition: 'NEW' as const, sellerName: 'You', category: 'Abayas', status: 'active', views: 245, sales: 12 },
+  { id: '2', title: 'Handwoven Silk Hijab Set', price: 89.99, shippingCost: 5.99, images: ['/placeholder.jpg'], condition: 'NEW' as const, sellerName: 'You', category: 'Hijabs & Scarves', status: 'active', views: 187, sales: 8 },
+  { id: '3', title: 'Traditional Pakistani Shalwar Kameez', price: 149.99, shippingCost: 12.99, images: ['/placeholder.jpg'], condition: 'LIKE_NEW' as const, sellerName: 'You', category: 'Shalwar Kameez', status: 'paused', views: 98, sales: 3 },
+  { id: '4', title: 'Wedding Lehenga with Zari Work', price: 349.99, shippingCost: 25.99, images: ['/placeholder.jpg'], condition: 'NEW' as const, sellerName: 'You', category: 'Lehenga', status: 'pending', views: 56, sales: 0 }
+]
 
 export default function SellerDashboard() {
+  const router = useRouter()
+  const { toast, confirm } = useToast()
   const [activeTab, setActiveTab] = useState<'overview' | 'orders' | 'listings' | 'payouts'>('overview')
   const [ordersTab, setOrdersTab] = useState<'new' | 'processing' | 'shipped' | 'completed'>('new')
   const [vacationMode, setVacationMode] = useState(false)
+  const [listingsFilter, setListingsFilter] = useState<'pending' | 'active' | 'paused'>('active')
+  const [sellerListings, setSellerListings] = useState(initialListings)
 
   const stats = [
     { label: "Today's Sales", value: '$342.50', change: '+12%', icon: DollarSign, bgClass: 'bg-gold/10', textClass: 'text-gold' },
@@ -23,7 +36,7 @@ export default function SellerDashboard() {
     { label: 'Active Listings', value: '42', change: '+5', icon: ShoppingBag, bgClass: 'bg-purple-500/10', textClass: 'text-purple-500' }
   ]
 
-  const orders = {
+  const orders: Record<string, { id: string; customer: string; items: number; total: number; date: string; tracking?: string; rating?: number }[]> = {
     new: [
       { id: 'ORD-1001', customer: 'Aisha M.', items: 2, total: 189.98, date: 'Today, 10:30 AM' },
       { id: 'ORD-1002', customer: 'Fatima K.', items: 1, total: 129.99, date: 'Today, 09:15 AM' },
@@ -43,63 +56,27 @@ export default function SellerDashboard() {
     ]
   }
 
-  const listings = [
-    {
-      id: '1',
-      title: 'Embroidered Moroccan Kaftan Dress',
-      price: 129.99,
-      shippingCost: 8.99,
-      images: ['/placeholder.jpg'],
-      condition: 'NEW' as const,
-      sellerName: 'You',
-      category: 'Abayas',
-      status: 'active',
-      views: 245,
-      sales: 12
-    },
-    {
-      id: '2',
-      title: 'Handwoven Silk Hijab Set',
-      price: 89.99,
-      shippingCost: 5.99,
-      images: ['/placeholder.jpg'],
-      condition: 'NEW' as const,
-      sellerName: 'You',
-      category: 'Hijabs & Scarves',
-      status: 'active',
-      views: 187,
-      sales: 8
-    },
-    {
-      id: '3',
-      title: 'Traditional Pakistani Shalwar Kameez',
-      price: 149.99,
-      shippingCost: 12.99,
-      images: ['/placeholder.jpg'],
-      condition: 'LIKE_NEW' as const,
-      sellerName: 'You',
-      category: 'Shalwar Kameez',
-      status: 'paused',
-      views: 98,
-      sales: 3
-    },
-    {
-      id: '4',
-      title: 'Wedding Lehenga with Zari Work',
-      price: 349.99,
-      shippingCost: 25.99,
-      images: ['/placeholder.jpg'],
-      condition: 'NEW' as const,
-      sellerName: 'You',
-      category: 'Lehenga',
-      status: 'pending',
-      views: 56,
-      sales: 0
-    }
-  ]
-
   const lifetimeGMV = 8452.20
   const loyaltyProgress = (lifetimeGMV / 10000) * 100
+
+  const toggleListingStatus = (id: string) => {
+    setSellerListings(prev => prev.map(l => {
+      if (l.id !== id) return l
+      const next = l.status === 'active' ? 'paused' : 'active'
+      return { ...l, status: next }
+    }))
+  }
+
+  const deleteListing = async (id: string) => {
+    if (await confirm('Delete this listing? This cannot be undone.')) {
+      setSellerListings(prev => prev.filter(l => l.id !== id))
+      toast('Listing deleted', 'success')
+    }
+  }
+
+  const handleOrderAction = (orderId: string, action: string) => {
+    toast(`${action} for order ${orderId}`, 'info')
+  }
 
   return (
     <>
@@ -179,7 +156,7 @@ export default function SellerDashboard() {
               <Card className="p-6">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="font-serif text-xl text-text-dark tracking-heading leading-heading">Recent Orders</h2>
-                  <Link href="/dashboard"><Button variant="ghost" size="sm">View All</Button></Link>
+                  <button onClick={() => setActiveTab('orders')} className="text-sm text-gold hover:underline font-sans">View All</button>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full">
@@ -206,7 +183,7 @@ export default function SellerDashboard() {
                             <Badge variant="gold" size="sm">New</Badge>
                           </td>
                           <td className="py-3 px-4">
-                            <Button variant="ghost" size="sm">Process</Button>
+                            <Button variant="ghost" size="sm" onClick={() => handleOrderAction(order.id, 'Process')}>Process</Button>
                           </td>
                         </tr>
                       ))}
@@ -219,7 +196,7 @@ export default function SellerDashboard() {
                 <Card className="p-6 lg:col-span-2">
                   <h2 className="font-serif text-xl text-text-dark mb-6 tracking-heading leading-heading">Listing Performance</h2>
                   <div className="space-y-4">
-                    {listings.slice(0, 3).map((listing) => (
+                    {sellerListings.slice(0, 3).map((listing) => (
                       <div key={listing.id} className="flex items-center justify-between p-4 border border-border rounded-md">
                         <div className="flex items-center gap-4">
                           <div className="w-12 h-12 bg-bg-mid rounded-md" />
@@ -235,11 +212,14 @@ export default function SellerDashboard() {
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
-                          <button className="p-2 text-text-muted hover:text-text-dark transition-fluid duration-300">
+                          <button onClick={() => router.push(`/listing/${listing.id}`)} aria-label="Edit listing" className="p-2 text-text-muted hover:text-text-dark transition-fluid duration-300">
                             <Edit className="h-4 w-4" />
                           </button>
-                          <button className="p-2 text-text-muted hover:text-text-dark transition-fluid duration-300">
-                            <MoreVertical className="h-4 w-4" />
+                          <button onClick={() => toggleListingStatus(listing.id)} aria-label={listing.status === 'active' ? 'Pause listing' : 'Resume listing'} className="p-2 text-text-muted hover:text-text-dark transition-fluid duration-300">
+                            {listing.status === 'active' ? <Pause className="h-4 w-4" /> : <Edit className="h-4 w-4" />}
+                          </button>
+                          <button onClick={() => deleteListing(listing.id)} aria-label="Delete listing" className="p-2 text-text-muted hover:text-red-500 transition-fluid duration-300">
+                            <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
                       </div>
@@ -347,7 +327,7 @@ export default function SellerDashboard() {
                                 {[...Array(5)].map((_, i) => (
                                   <div
                                     key={i}
-                                    className={`h-3 w-3 ${i < (order as any).rating ? 'bg-gold' : 'bg-border'}`}
+                                    className={`h-3 w-3 ${i < (order.rating ?? 0) ? 'bg-gold' : 'bg-border'}`}
                                   />
                                 ))}
                               </div>
@@ -357,15 +337,15 @@ export default function SellerDashboard() {
                         <td className="py-3 px-4">
                           <div className="flex items-center gap-2">
                             {ordersTab === 'new' && (
-                              <Button variant="primary" size="sm">Confirm</Button>
+                              <Button variant="primary" size="sm" onClick={() => handleOrderAction(order.id, 'Confirm')}>Confirm</Button>
                             )}
                             {ordersTab === 'processing' && (
-                              <Button variant="primary" size="sm">Mark Shipped</Button>
+                              <Button variant="primary" size="sm" onClick={() => handleOrderAction(order.id, 'Mark Shipped')}>Mark Shipped</Button>
                             )}
                             {ordersTab === 'shipped' && (
-                              <Button variant="outline" size="sm">Tracking</Button>
+                              <Button variant="outline" size="sm" onClick={() => toast('tracking' in order ? (order.tracking ?? 'No tracking') : 'No tracking', 'info')}>Tracking</Button>
                             )}
-                            <button className="p-1 text-text-muted hover:text-text-dark transition-fluid duration-300">
+                            <button onClick={() => toast(`Order details: ${order.id}`, 'info')} aria-label="Order options" className="p-1 text-text-muted hover:text-text-dark transition-fluid duration-300">
                               <MoreVertical className="h-4 w-4" />
                             </button>
                           </div>
@@ -383,40 +363,38 @@ export default function SellerDashboard() {
             <div>
               <div className="flex items-center justify-between mb-6">
                 <div className="flex gap-4">
-                  <Button variant={listings.some(l => l.status === 'pending') ? 'primary' : 'outline'}>
-                    Pending ({listings.filter(l => l.status === 'pending').length})
-                  </Button>
-                  <Button variant="outline">
-                    Active ({listings.filter(l => l.status === 'active').length})
-                  </Button>
-                  <Button variant="outline">
-                    Paused ({listings.filter(l => l.status === 'paused').length})
-                  </Button>
+                  {(['pending', 'active', 'paused'] as const).map(filter => (
+                    <Button key={filter} variant={listingsFilter === filter ? 'primary' : 'outline'} onClick={() => setListingsFilter(filter)}>
+                      {filter.charAt(0).toUpperCase() + filter.slice(1)} ({sellerListings.filter(l => l.status === filter).length})
+                    </Button>
+                  ))}
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" onClick={() => toast('Select a listing to duplicate', 'info')}>
                     <Copy className="h-4 w-4 mr-2" />
                     Duplicate
                   </Button>
-                  <Button variant="outline" size="sm">
-                    <Upload className="h-4 w-4 mr-2" />
-                    CSV Upload
-                  </Button>
+                  <Link href="/create-listing">
+                    <Button variant="outline" size="sm">
+                      <Upload className="h-4 w-4 mr-2" />
+                      CSV Upload
+                    </Button>
+                  </Link>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                {listings.map((listing) => (
+                {sellerListings.filter(l => l.status === listingsFilter).map((listing) => (
                   <div key={listing.id} className="relative">
                     <ProductCard {...listing} />
                     <div className="absolute top-3 right-3 flex gap-1">
-                      <button className="p-1.5 bg-white/90 rounded hover:bg-white transition-fluid duration-300">
+                      <button onClick={() => router.push(`/listing/${listing.id}`)} aria-label="Edit listing" className="p-1.5 bg-white/90 rounded hover:bg-white transition-fluid duration-300">
                         <Edit className="h-3.5 w-3.5 text-text-muted" />
                       </button>
-                      <button className="p-1.5 bg-white/90 rounded hover:bg-white transition-fluid duration-300">
+                      <button onClick={() => toggleListingStatus(listing.id)} aria-label="Pause listing" className="p-1.5 bg-white/90 rounded hover:bg-white transition-fluid duration-300">
                         <Pause className="h-3.5 w-3.5 text-text-muted" />
                       </button>
-                      <button className="p-1.5 bg-white/90 rounded hover:bg-white transition-fluid duration-300">
+                      <button onClick={() => deleteListing(listing.id)} aria-label="Delete listing" className="p-1.5 bg-white/90 rounded hover:bg-white transition-fluid duration-300">
                         <Trash2 className="h-3.5 w-3.5 text-text-muted" />
                       </button>
                     </div>
@@ -476,7 +454,7 @@ export default function SellerDashboard() {
                       </div>
                     ))}
                   </div>
-                  <Button variant="outline" fullWidth className="mt-4">
+                  <Button variant="outline" fullWidth className="mt-4" onClick={() => toast('Full payout history coming soon', 'info')}>
                     View All Payouts
                   </Button>
                 </div>

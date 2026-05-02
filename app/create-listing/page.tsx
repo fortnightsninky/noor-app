@@ -8,8 +8,10 @@ import Input from '@/components/ui/Input'
 import Card from '@/components/ui/Card'
 import { Upload, Image, Video, Sparkles, X, Plus, DollarSign, Package, Scissors, Palette, Calendar, Award, UploadCloud } from 'lucide-react'
 import { useState } from 'react'
+import { useToast } from '@/components/ui/Toast'
 
 export default function CreateListingPage() {
+  const { toast } = useToast()
   const [mode, setMode] = useState<'simple' | 'advanced'>('simple')
   const [images, setImages] = useState<string[]>([])
   const [formData, setFormData] = useState({
@@ -82,7 +84,19 @@ export default function CreateListingPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Listing data:', formData, images)
+    toast('Listing submitted for approval!', 'success')
+  }
+
+  const handleSaveDraft = () => {
+    toast('Draft saved!', 'success')
+  }
+
+  const handleDuplicate = () => {
+    toast('Listing duplicated!', 'success')
+  }
+
+  const handleVideoUpload = () => {
+    toast('Video upload coming soon', 'info')
   }
 
   return (
@@ -135,6 +149,7 @@ export default function CreateListingPage() {
                             type="button"
                             onClick={() => removeImage(index)}
                             className="absolute top-2 right-2 p-1 bg-black/50 rounded-full hover:bg-black/70 transition-fluid duration-300"
+                            aria-label="Remove image"
                           >
                             <X className="h-4 w-4 text-white" />
                           </button>
@@ -156,7 +171,7 @@ export default function CreateListingPage() {
                       <div className="border-2 border-dashed border-border rounded-md p-8 text-center">
                         <Video className="h-12 w-12 text-gold-light mx-auto mb-4" />
                         <p className="text-text-muted mb-2 font-sans">Upload a short video showcasing your item</p>
-                        <Button type="button" variant="outline" size="sm">
+                        <Button type="button" variant="outline" size="sm" onClick={handleVideoUpload}>
                           <Upload className="h-4 w-4 mr-2" />
                           Upload Video
                         </Button>
@@ -407,11 +422,11 @@ export default function CreateListingPage() {
                         <Button type="submit" variant="primary" fullWidth>
                           Submit for Approval
                         </Button>
-                        <Button type="button" variant="outline" fullWidth>
+                        <Button type="button" variant="outline" fullWidth onClick={handleSaveDraft}>
                           Save as Draft
                         </Button>
                         {mode === 'advanced' && (
-                          <Button type="button" variant="ghost" fullWidth>
+                          <Button type="button" variant="ghost" fullWidth onClick={handleDuplicate}>
                             Duplicate Listing
                           </Button>
                         )}

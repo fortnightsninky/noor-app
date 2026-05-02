@@ -128,6 +128,15 @@ h1, h2, h3, h4, h5, h6 {
   animation: shimmer 3s linear infinite;
 }
 
+@keyframes slide-up {
+  0% { transform: translateY(8px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
 /* Glassmorphism enhancements */
 .glass-panel {
   background: rgba(255, 255, 255, 0.05);

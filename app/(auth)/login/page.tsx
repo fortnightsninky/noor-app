@@ -9,9 +9,12 @@ import Card from '@/components/ui/Card'
 import Link from 'next/link'
 import { Lock, Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
+import { useToast } from '@/components/ui/Toast'
 
 export default function LoginPage() {
+  const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -19,7 +22,11 @@ export default function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Login:', formData)
+    toast('Login functionality coming soon', 'info')
+  }
+
+  const handleGoogleSignIn = () => {
+    toast('Google sign-in coming soon', 'info')
   }
 
   return (
@@ -75,6 +82,8 @@ export default function LoginPage() {
                 <div className="flex items-center">
                   <input
                     type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
                     id="remember"
                     className="h-4 w-4 text-gold border-border rounded focus:ring-gold"
                   />
@@ -82,12 +91,13 @@ export default function LoginPage() {
                     Remember me
                   </label>
                 </div>
-                <Link
-                  href="/register"
-                  className="text-sm text-gold hover:underline font-sans transition-fluid duration-300"
-                >
-                  Forgot password?
-                </Link>
+                <button
+          type="button"
+          onClick={() => toast('Password reset coming soon', 'info')}
+          className="text-sm text-gold hover:underline font-sans transition-fluid duration-300"
+        >
+          Forgot password?
+        </button>
               </div>
 
               <Button type="submit" variant="primary" fullWidth>
@@ -109,6 +119,7 @@ export default function LoginPage() {
                 type="button"
                 variant="outline"
                 fullWidth
+                onClick={handleGoogleSignIn}
                 className="flex items-center justify-center gap-3"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">

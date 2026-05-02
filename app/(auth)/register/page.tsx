@@ -9,10 +9,16 @@ import Card from '@/components/ui/Card'
 import Link from 'next/link'
 import { Lock, Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useToast } from '@/components/ui/Toast'
 
 export default function RegisterPage() {
+  const router = useRouter()
+  const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [agreedToTerms, setAgreedToTerms] = useState(false)
+  const [subscribedNewsletter, setSubscribedNewsletter] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,10 +30,15 @@ export default function RegisterPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match')
+      toast('Passwords do not match', 'error')
       return
     }
-    console.log('Register:', formData)
+    toast('Account created! Redirecting...', 'success')
+    router.push(formData.accountType === 'seller' ? '/dashboard' : '/browse')
+  }
+
+  const handleGoogleSignUp = () => {
+    toast('Google sign-up coming soon', 'info')
   }
 
   return (
@@ -144,6 +155,8 @@ export default function RegisterPage() {
                 <input
                   type="checkbox"
                   id="terms"
+                  checked={agreedToTerms}
+                  onChange={(e) => setAgreedToTerms(e.target.checked)}
                   className="h-4 w-4 text-gold border-border rounded focus:ring-gold"
                   required
                 />
@@ -163,6 +176,8 @@ export default function RegisterPage() {
                 <input
                   type="checkbox"
                   id="newsletter"
+                  checked={subscribedNewsletter}
+                  onChange={(e) => setSubscribedNewsletter(e.target.checked)}
                   className="h-4 w-4 text-gold border-border rounded focus:ring-gold"
                 />
                 <label htmlFor="newsletter" className="ml-2 text-sm text-text-muted font-sans">
@@ -189,6 +204,7 @@ export default function RegisterPage() {
                 type="button"
                 variant="outline"
                 fullWidth
+                onClick={handleGoogleSignUp}
                 className="flex items-center justify-center gap-3"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">

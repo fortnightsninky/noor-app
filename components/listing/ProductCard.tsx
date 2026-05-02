@@ -65,7 +65,7 @@ export default function ProductCard({
               e.preventDefault()
               onWishlistToggle?.()
             }}
-            className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-white transition-colors"
+            aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'} className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-white transition-colors"
           >
             <Heart
               className={`h-5 w-5 ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-text-muted'}`}
