@@ -8,10 +8,10 @@ export default function Footer() {
           <div>
             <h3 className="font-serif text-lg mb-4">For Buyers</h3>
             <ul className="space-y-2">
-              <li><Link href="/how-it-works" className="hover:text-gold transition-fluid duration-300">How It Works</Link></li>
-              <li><Link href="/buyer-protection" className="hover:text-gold transition-fluid duration-300">Buyer Protection</Link></li>
-              <li><Link href="/size-guide" className="hover:text-gold transition-fluid duration-300">Size Guide</Link></li>
-              <li><Link href="/faq" className="hover:text-gold transition-fluid duration-300">FAQ</Link></li>
+              <li><Link href="/browse" className="hover:text-gold transition-fluid duration-300">Shop All</Link></li>
+              <li><Link href="/browse?condition=NEW" className="hover:text-gold transition-fluid duration-300">New Arrivals</Link></li>
+              <li><Link href="/account" className="hover:text-gold transition-fluid duration-300">My Orders</Link></li>
+              <li><Link href="/account" className="hover:text-gold transition-fluid duration-300">My Wishlist</Link></li>
             </ul>
           </div>
 
@@ -19,29 +19,29 @@ export default function Footer() {
             <h3 className="font-serif text-lg mb-4">For Sellers</h3>
             <ul className="space-y-2">
               <li><Link href="/create-listing" className="hover:text-gold transition-fluid duration-300">Start Selling</Link></li>
-              <li><Link href="/seller-guide" className="hover:text-gold transition-fluid duration-300">Seller Guide</Link></li>
-              <li><Link href="/fees" className="hover:text-gold transition-fluid duration-300">Fees & Pricing</Link></li>
-              <li><Link href="/seller-protection" className="hover:text-gold transition-fluid duration-300">Seller Protection</Link></li>
+              <li><Link href="/dashboard" className="hover:text-gold transition-fluid duration-300">Seller Dashboard</Link></li>
+              <li><Link href="/create-listing" className="hover:text-gold transition-fluid duration-300">Create Listing</Link></li>
+              <li><Link href="/dashboard" className="hover:text-gold transition-fluid duration-300">Payouts</Link></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-serif text-lg mb-4">Legal</h3>
+            <h3 className="font-serif text-lg mb-4">Account</h3>
             <ul className="space-y-2">
-              <li><Link href="/privacy" className="hover:text-gold transition-fluid duration-300">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="hover:text-gold transition-fluid duration-300">Terms of Service</Link></li>
-              <li><Link href="/cookie-policy" className="hover:text-gold transition-fluid duration-300">Cookie Policy</Link></li>
-              <li><Link href="/disputes" className="hover:text-gold transition-fluid duration-300">Dispute Resolution</Link></li>
+              <li><Link href="/login" className="hover:text-gold transition-fluid duration-300">Sign In</Link></li>
+              <li><Link href="/register" className="hover:text-gold transition-fluid duration-300">Create Account</Link></li>
+              <li><Link href="/account" className="hover:text-gold transition-fluid duration-300">My Profile</Link></li>
+              <li><Link href="/account" className="hover:text-gold transition-fluid duration-300">Settings</Link></li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-serif text-lg mb-4">Connect</h3>
             <ul className="space-y-2">
-              <li><Link href="/about" className="hover:text-gold transition-fluid duration-300">About Noor</Link></li>
-              <li><Link href="/blog" className="hover:text-gold transition-fluid duration-300">Blog</Link></li>
-              <li><Link href="/contact" className="hover:text-gold transition-fluid duration-300">Contact Us</Link></li>
-              <li><Link href="/press" className="hover:text-gold transition-fluid duration-300">Press</Link></li>
+              <li><Link href="/browse" className="hover:text-gold transition-fluid duration-300">Browse</Link></li>
+              <li><Link href="/dashboard" className="hover:text-gold transition-fluid duration-300">Dashboard</Link></li>
+              <li><Link href="/checkout" className="hover:text-gold transition-fluid duration-300">Cart</Link></li>
+              <li><Link href="/create-listing" className="hover:text-gold transition-fluid duration-300">List an Item</Link></li>
             </ul>
           </div>
         </div>
@@ -49,7 +49,7 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-border/30">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <span className="font-serif text-gold text-xl">Noor</span>
+              <Link href="/" className="font-serif text-gold text-xl hover:opacity-80 transition-fluid duration-300">Noor</Link>
               <p className="text-sm text-gold-light/70 mt-1 font-sans">
                 The marketplace for modest fashion
               </p>

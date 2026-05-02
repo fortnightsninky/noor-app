@@ -3,6 +3,7 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import ProductCard from '@/components/listing/ProductCard'
 import Button from '@/components/ui/Button'
+import Link from 'next/link'
 import { Filter, ChevronDown } from 'lucide-react'
 
 const listings = [
@@ -114,7 +115,9 @@ export default function BrowsePage() {
                       <p className="font-serif text-2xl text-text-dark">From $199</p>
                       <p className="text-sm text-text-muted font-sans">Free shipping on orders over $150</p>
                     </div>
-                    <Button variant="primary">Shop Collection</Button>
+                    <Link href="/browse?category=abayas">
+                      <Button variant="primary">Shop Collection</Button>
+                    </Link>
                   </div>
                 </div>
               </div>

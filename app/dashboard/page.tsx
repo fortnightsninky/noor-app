@@ -7,6 +7,7 @@ import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import Badge from '@/components/ui/Badge'
 import ProductCard from '@/components/listing/ProductCard'
+import Link from 'next/link'
 import { TrendingUp, Package, DollarSign, Users, ShoppingBag, Settings, Upload, MoreVertical, Edit, Pause, Trash2, Copy, BarChart3, CreditCard, Target, Plus, Umbrella } from 'lucide-react'
 import { useState } from 'react'
 
@@ -115,14 +116,18 @@ export default function SellerDashboard() {
                 <p className="text-gold-light font-sans">Welcome back, ZahraDesigns</p>
               </div>
               <div className="flex gap-4">
-                <Button variant="outline" className="hover:-translate-y-[1px] hover:shadow-md focus:-translate-y-[1px] focus:shadow-md focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg">
-                  <Upload className="h-4 w-4 mr-2" />
-                  Bulk Upload
-                </Button>
-                <Button variant="primary" className="hover:-translate-y-[1px] hover:shadow-md focus:-translate-y-[1px] focus:shadow-md focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg">
-                  <Plus className="h-4 w-4 mr-2" />
-                  New Listing
-                </Button>
+                <Link href="/create-listing">
+                  <Button variant="outline">
+                    <Upload className="h-4 w-4 mr-2" />
+                    Bulk Upload
+                  </Button>
+                </Link>
+                <Link href="/create-listing">
+                  <Button variant="primary">
+                    <Plus className="h-4 w-4 mr-2" />
+                    New Listing
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -174,7 +179,7 @@ export default function SellerDashboard() {
               <Card className="p-6">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="font-serif text-xl text-text-dark tracking-heading leading-heading">Recent Orders</h2>
-                  <Button variant="ghost" size="sm">View All</Button>
+                  <Link href="/dashboard"><Button variant="ghost" size="sm">View All</Button></Link>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full">

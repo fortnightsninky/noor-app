@@ -5,6 +5,7 @@ import Button from '@/components/ui/Button'
 import Badge from '@/components/ui/Badge'
 import Card from '@/components/ui/Card'
 import ProductCard from '@/components/listing/ProductCard'
+import Link from 'next/link'
 import { Heart, Share2, Star, Check, Truck, Shield, Clock } from 'lucide-react'
 
 export default function ListingPage() {
@@ -174,12 +175,16 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <Button variant="primary" size="lg" fullWidth className="flex-1 hover:-translate-y-[2px] hover:shadow-hover focus:-translate-y-[2px] focus:shadow-hover focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg">
-                      Add to Cart
-                    </Button>
-                    <Button variant="outline" size="lg" fullWidth className="flex-1 hover:-translate-y-[2px] hover:shadow-hover focus:-translate-y-[2px] focus:shadow-hover focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg">
-                      Buy Now
-                    </Button>
+                    <Link href="/checkout" className="flex-1">
+                      <Button variant="primary" size="lg" fullWidth>
+                        Add to Cart
+                      </Button>
+                    </Link>
+                    <Link href="/checkout" className="flex-1">
+                      <Button variant="outline" size="lg" fullWidth>
+                        Buy Now
+                      </Button>
+                    </Link>
                     <button className="p-3 border border-border rounded-md text-white hover:bg-bg-mid hover:border-gold/50 transition-fluid duration-300 will-transform hover:-translate-y-[1px] hover:shadow-md">
                       <Heart className="h-5 w-5" />
                     </button>

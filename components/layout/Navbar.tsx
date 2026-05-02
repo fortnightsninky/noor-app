@@ -37,28 +37,30 @@ export default function Navbar() {
               </div>
             </div>
 
-            <button className="p-2 text-white hover:text-gold transition-fluid duration-300">
+            <Link href="/account" className="p-2 text-white hover:text-gold transition-fluid duration-300">
               <MessageCircle className="h-5 w-5" />
-            </button>
-            <button className="p-2 text-white hover:text-gold transition-fluid duration-300 relative">
+            </Link>
+            <Link href="/checkout" className="p-2 text-white hover:text-gold transition-fluid duration-300 relative">
               <ShoppingCart className="h-5 w-5" />
               <span className="absolute -top-1 -right-1 bg-gold text-bg text-xs rounded-full h-5 w-5 flex items-center justify-center font-sans">
                 3
               </span>
-            </button>
-            <button className="p-2 text-white hover:text-gold transition-fluid duration-300 relative">
+            </Link>
+            <Link href="/account" className="p-2 text-white hover:text-gold transition-fluid duration-300 relative">
               <Bell className="h-5 w-5" />
               <span className="absolute -top-1 -right-1 bg-gold text-bg text-xs rounded-full h-5 w-5 flex items-center justify-center font-sans">
                 5
               </span>
-            </button>
-            <button className="p-2 text-white hover:text-gold transition-fluid duration-300">
+            </Link>
+            <Link href="/account" className="p-2 text-white hover:text-gold transition-fluid duration-300">
               <User className="h-5 w-5" />
-            </button>
+            </Link>
 
-            <Button variant="outline" size="sm">
-              Start Selling
-            </Button>
+            <Link href="/create-listing">
+              <Button variant="outline" size="sm">
+                Start Selling
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
