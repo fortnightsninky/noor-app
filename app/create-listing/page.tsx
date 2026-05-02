@@ -104,7 +104,7 @@ export default function CreateListingPage() {
       <AnnouncementBar />
       <Navbar />
 
-      <main className="min-h-screen bg-bg py-8">
+      <main className="min-h-[100dvh] bg-bg py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
             <h1 className="font-serif text-3xl text-white mb-2 tracking-heading leading-heading">Create New Listing</h1>
@@ -128,7 +128,7 @@ export default function CreateListingPage() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} noValidate>
             <div className="grid lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2">
                 <Card className="p-6 mb-6">
@@ -144,7 +144,7 @@ export default function CreateListingPage() {
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
                       {images.map((image, index) => (
                         <div key={index} className="relative aspect-square bg-bg-mid rounded-md overflow-hidden">
-                          <div className="w-full h-full bg-gradient-to-br from-gold/20 to-bg-light/20" />
+                          <div className="w-full h-full img-placeholder" />
                           <button
                             type="button"
                             onClick={() => removeImage(index)}
@@ -195,7 +195,7 @@ export default function CreateListingPage() {
                       <select
                         value={formData.category}
                         onChange={(e) => setFormData({ ...formData, category: e.target.value, subcategory: '' })}
-                        className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-sans"
+                        className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:border-transparent font-sans"
                         required
                       >
                         <option value="">Select a category</option>
@@ -213,7 +213,7 @@ export default function CreateListingPage() {
                         <select
                           value={formData.subcategory}
                           onChange={(e) => setFormData({ ...formData, subcategory: e.target.value })}
-                          className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-sans"
+                          className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:border-transparent font-sans"
                         >
                           <option value="">Select subcategory</option>
                           {subcategories[formData.category]?.map(sub => (
@@ -299,7 +299,7 @@ export default function CreateListingPage() {
                           min="0"
                           value={formData.price}
                           onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                          className="w-full pl-8 pr-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-sans"
+                          className="w-full pl-8 pr-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark placeholder:text-text-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:border-transparent font-sans"
                           placeholder="0.00"
                           required
                         />
@@ -319,7 +319,7 @@ export default function CreateListingPage() {
                           min="0"
                           value={formData.shippingCost}
                           onChange={(e) => setFormData({ ...formData, shippingCost: e.target.value })}
-                          className="w-full pl-8 pr-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-sans"
+                          className="w-full pl-8 pr-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark placeholder:text-text-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:border-transparent font-sans"
                           placeholder="0.00"
                           required
                         />
@@ -335,7 +335,7 @@ export default function CreateListingPage() {
                         min="1"
                         value={formData.quantity}
                         onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                        className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-sans"
+                        className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark placeholder:text-text-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:border-transparent font-sans"
                         required
                       />
                     </div>
@@ -360,7 +360,7 @@ export default function CreateListingPage() {
                         value={formData.description}
                         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                         rows={6}
-                        className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-sans"
+                        className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark placeholder:text-text-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:border-transparent font-sans"
                         placeholder="Describe your item in detail..."
                         required
                       />
@@ -375,7 +375,7 @@ export default function CreateListingPage() {
                           <select
                             value={formData.dispatchTime}
                             onChange={(e) => setFormData({ ...formData, dispatchTime: e.target.value })}
-                            className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-sans"
+                            className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:border-transparent font-sans"
                           >
                             <option value="1-2">1-2 business days</option>
                             <option value="3-5">3-5 business days</option>
@@ -391,7 +391,7 @@ export default function CreateListingPage() {
                           <select
                             value={formData.returnPolicy}
                             onChange={(e) => setFormData({ ...formData, returnPolicy: e.target.value })}
-                            className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-sans"
+                            className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:border-transparent font-sans"
                           >
                             <option value="14">14 days</option>
                             <option value="30">30 days</option>

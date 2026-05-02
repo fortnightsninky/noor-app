@@ -75,7 +75,7 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
       <AnnouncementBar />
       <Navbar />
 
-      <main className="min-h-screen bg-bg">
+      <main className="min-h-[100dvh] bg-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Breadcrumb */}
           <nav className="mb-8 text-gold-light font-sans text-sm">
@@ -92,7 +92,7 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
             {/* Left: Image Gallery */}
             <div>
               <div className="aspect-square bg-bg-mid rounded-md overflow-hidden mb-4 hover:-translate-y-[2px] hover:shadow-hover transition-fluid duration-300 will-transform">
-                <div className="w-full h-full bg-gradient-to-br from-gold/20 to-bg-light/20" />
+                <div className="w-full h-full img-placeholder" />
               </div>
               <div className="flex gap-3 overflow-x-auto pb-4">
                 {listing.images.map((_, index) => (
@@ -100,7 +100,7 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
                     key={index}
                     className="flex-shrink-0 w-20 h-20 bg-bg-mid rounded-md overflow-hidden hover:-translate-y-[1px] hover:shadow-md transition-fluid duration-300 will-transform cursor-pointer border border-transparent hover:border-gold/50"
                   >
-                    <div className="w-full h-full bg-gradient-to-br from-gold/10 to-bg-light/10" />
+                    <div className="w-full h-full img-placeholder" />
                   </div>
                 ))}
               </div>
@@ -191,7 +191,7 @@ This piece is part of our exclusive Moroccan collection, designed to celebrate t
                         <span>{listing.responseRate}% response</span>
                       </div>
                     </div>
-                    <Button variant={isFollowing ? 'outline' : 'primary'} size="sm" onClick={() => setIsFollowing(!isFollowing)} className="hover:-translate-y-[1px] hover:shadow-md focus:-translate-y-[1px] focus:shadow-md focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg">
+                    <Button variant={isFollowing ? 'outline' : 'primary'} size="sm" onClick={() => setIsFollowing(!isFollowing)} className="hover:-translate-y-[1px] hover:shadow-md focus-visible:-translate-y-[1px] focus-visible:shadow-md focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bg">
                       {isFollowing ? 'Following' : 'Follow'}
                     </Button>
                   </div>

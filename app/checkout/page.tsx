@@ -52,14 +52,14 @@ export default function CheckoutPage() {
       <AnnouncementBar />
       <Navbar />
 
-      <main className="min-h-screen bg-bg py-8">
+      <main className="min-h-[100dvh] bg-bg py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
             <h1 className="font-serif text-3xl text-white mb-2 tracking-heading leading-heading">Checkout</h1>
             <p className="text-gold-light font-sans">Complete your purchase</p>
           </div>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} noValidate>
             <div className="grid lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2">
                 {/* Shipping Address */}
@@ -203,7 +203,7 @@ export default function CheckoutPage() {
                     {cartItems.map((item) => (
                       <div key={item.id} className="flex gap-4 mb-4 pb-4 border-b border-border last:border-0">
                         <div className="w-16 h-16 bg-bg-mid rounded-md flex-shrink-0">
-                          <div className="w-full h-full bg-gradient-to-br from-gold/20 to-bg-light/20" />
+                          <div className="w-full h-full img-placeholder" />
                         </div>
                         <div className="flex-1">
                           <h3 className="font-serif text-sm text-text-dark mb-1 line-clamp-2">

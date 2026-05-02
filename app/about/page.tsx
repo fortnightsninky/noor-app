@@ -11,7 +11,7 @@ export default function AboutPage() {
       <AnnouncementBar />
       <Navbar />
 
-      <main className="min-h-screen bg-bg">
+      <main className="min-h-[100dvh] bg-bg">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <h1 className="font-serif text-5xl text-white mb-6 tracking-heading leading-heading">About Noor</h1>
           <p className="text-gold-light font-sans text-xl mb-12">The marketplace for modest fashion, built with trust and purpose.</p>
@@ -63,7 +63,7 @@ export default function AboutPage() {
                 <li>&bull; AI-powered listing descriptions to save you time</li>
               </ul>
               <div className="mt-6">
-                <Link href="/create-listing">
+                <Link href="/create-listing" className="focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 rounded-sm">
                   <Button variant="primary">Start Selling</Button>
                 </Link>
               </div>

@@ -100,7 +100,7 @@ export default function AccountPage() {
       <AnnouncementBar />
       <Navbar />
 
-      <main className="min-h-screen bg-bg py-8">
+      <main className="min-h-[100dvh] bg-bg py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
             <h1 className="font-serif text-3xl text-white mb-2 tracking-heading leading-heading">My Account</h1>
@@ -416,13 +416,13 @@ export default function AccountPage() {
                       <div className="grid md:grid-cols-2 gap-6">
                         <div>
                           <label className="block text-sm font-medium text-text-dark font-sans mb-2 label">Language</label>
-                          <select value={language} onChange={(e) => setLanguage(e.target.value)} className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-sans">
+                          <select value={language} onChange={(e) => setLanguage(e.target.value)} className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:border-transparent font-sans">
                             <option>English</option><option>Arabic</option><option>Urdu</option><option>French</option><option>Spanish</option>
                           </select>
                         </div>
                         <div>
                           <label className="block text-sm font-medium text-text-dark font-sans mb-2 label">Currency</label>
-                          <select value={currency} onChange={(e) => setCurrency(e.target.value)} className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-sans">
+                          <select value={currency} onChange={(e) => setCurrency(e.target.value)} className="w-full px-3 py-2.5 bg-bg-light border border-border rounded-md text-text-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:border-transparent font-sans">
                             <option>USD ($)</option><option>EUR</option><option>GBP</option><option>CAD ($)</option><option>AUD ($)</option>
                           </select>
                         </div>

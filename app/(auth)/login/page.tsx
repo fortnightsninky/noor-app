@@ -34,7 +34,7 @@ export default function LoginPage() {
       <AnnouncementBar />
       <Navbar />
 
-      <main className="min-h-screen bg-bg py-12">
+      <main className="min-h-[100dvh] bg-bg py-12">
         <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8">
           <Card className="p-8">
             <div className="text-center mb-8">
@@ -44,7 +44,7 @@ export default function LoginPage() {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" noValidate>
               <Input
                 label="Email Address"
                 type="email"
@@ -52,26 +52,30 @@ export default function LoginPage() {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
+                autoComplete="email"
               />
 
               <div>
-                <label className="block text-sm font-medium text-text-dark font-sans mb-1.5 label">
+                <label htmlFor="login-password" className="block text-sm font-medium text-text-dark font-sans mb-1.5 label">
                   Password
                 </label>
                 <div className="relative">
                   <input
+                    id="login-password"
                     type={showPassword ? 'text' : 'password'}
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    className="w-full px-3 py-2.5 pl-10 bg-bg-light border border-border rounded-md text-text-dark placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-sans focus:-translate-y-[1px] focus:shadow-md transition-fluid duration-300"
+                    className="w-full px-3 py-2.5 pl-10 bg-bg-light border border-border rounded-md text-text-dark placeholder:text-text-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:border-transparent font-sans focus-visible:-translate-y-[1px] focus-visible:shadow-md transition-fluid duration-300"
                     placeholder="Enter your password"
                     required
+                    autoComplete="current-password"
                   />
-                  <Lock className="absolute left-3 top-2.5 h-5 w-5 text-text-muted/50" />
+                  <Lock className="absolute left-3 top-2.5 h-5 w-5 text-text-muted/50 pointer-events-none" aria-hidden="true" />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-2.5 text-text-muted/50 hover:text-text-muted transition-fluid duration-300"
+                    className="absolute right-3 top-2.5 text-text-muted/50 hover:text-text-muted transition-fluid duration-300 focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 rounded-sm"
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
                     {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
@@ -82,29 +86,29 @@ export default function LoginPage() {
                 <div className="flex items-center">
                   <input
                     type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
                     id="remember"
-                    className="h-4 w-4 text-gold border-border rounded focus:ring-gold"
+                    className="h-4 w-4 text-gold border-border rounded focus-visible:ring-gold"
                   />
                   <label htmlFor="remember" className="ml-2 text-sm text-text-muted font-sans">
                     Remember me
                   </label>
                 </div>
                 <button
-          type="button"
-          onClick={() => toast('Password reset coming soon', 'info')}
-          className="text-sm text-gold hover:underline font-sans transition-fluid duration-300"
-        >
-          Forgot password?
-        </button>
+                  type="button"
+                  onClick={() => toast('Password reset coming soon', 'info')}
+                  className="text-sm text-gold hover:underline font-sans transition-fluid duration-300 focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 rounded-sm"
+                >
+                  Forgot password?
+                </button>
               </div>
 
               <Button type="submit" variant="primary" fullWidth>
                 Sign In
               </Button>
 
-              <div className="relative my-6">
+              <div className="relative my-6" aria-hidden="true">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-border" />
                 </div>
@@ -122,7 +126,7 @@ export default function LoginPage() {
                 onClick={handleGoogleSignIn}
                 className="flex items-center justify-center gap-3"
               >
-                <svg className="h-5 w-5" viewBox="0 0 24 24">
+                <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
                   <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
                   <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
                   <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
@@ -134,7 +138,7 @@ export default function LoginPage() {
               <div className="text-center mt-6">
                 <p className="text-text-muted font-sans">
                   Don&apos;t have an account?{' '}
-                  <Link href="/register" className="text-gold hover:underline font-medium transition-fluid duration-300">
+                  <Link href="/register" className="text-gold hover:underline font-medium transition-fluid duration-300 focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 rounded-sm">
                     Sign up
                   </Link>
                 </p>
@@ -145,11 +149,11 @@ export default function LoginPage() {
           <div className="mt-8 text-center">
             <p className="text-sm text-gold-light/70 font-sans">
               By signing in, you agree to our{' '}
-              <Link href="/terms" className="text-gold hover:underline transition-fluid duration-300">
+              <Link href="/terms" className="text-gold hover:underline transition-fluid duration-300 focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 rounded-sm">
                 Terms of Service
               </Link>{' '}
               and{' '}
-              <Link href="/privacy" className="text-gold hover:underline transition-fluid duration-300">
+              <Link href="/privacy" className="text-gold hover:underline transition-fluid duration-300 focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 rounded-sm">
                 Privacy Policy
               </Link>
             </p>

@@ -24,11 +24,9 @@ export default function Card({
     lg: 'p-7'
   }
 
-  const baseClasses = 'bg-bg-light rounded-md card-shadow transition-fluid duration-300'
+  const baseClasses = 'bg-bg-light rounded-md shadow-tinted transition-fluid duration-300'
   const borderedClass = bordered ? 'border border-border' : ''
-
-  const hoverClass = hover ? 'hover:shadow-hover hover:-translate-y-[2px] hover:scale-[1.02]' : ''
-
+  const hoverClass = hover ? 'hover:shadow-hover hover:-translate-y-[2px] hover:scale-[1.01]' : ''
   const perpetualClass = perpetual ? 'animate-float' : ''
 
   return (

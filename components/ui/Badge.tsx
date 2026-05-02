@@ -27,12 +27,11 @@ export default function Badge({
   }
 
   const baseClasses = 'inline-flex items-center rounded-md font-sans font-medium transition-fluid duration-300'
-  const hoverClass = 'hover:-translate-y-[1px] hover:shadow-md'
-  const perpetualClass = perpetual ? 'animate-pulse' : ''
+  const perpetualClass = perpetual ? 'animate-pulse-glow' : ''
 
   return (
     <span
-      className={`${baseClasses} ${hoverClass} ${variantClasses[variant]} ${sizeClasses[size]} ${perpetualClass}`}
+      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${perpetualClass}`}
     >
       {children}
     </span>

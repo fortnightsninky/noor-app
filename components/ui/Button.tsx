@@ -13,15 +13,16 @@ export default function Button({
   size = 'md',
   fullWidth = false,
   className = '',
+  disabled = false,
   ...props
 }: ButtonProps) {
-  const baseClasses = 'inline-flex items-center justify-center font-sans font-medium transition-fluid duration-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-bg'
+  const baseClasses = 'inline-flex items-center justify-center font-sans font-medium transition-fluid duration-300 rounded-md focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2'
 
   const variantClasses = {
-    primary: 'bg-gold text-bg hover:bg-gold-light/90 hover:-translate-y-[2px] hover:shadow-hover active:-translate-y-[0] active:shadow-md',
-    secondary: 'bg-bg-light text-text-dark hover:bg-bg-mid/90 hover:text-white hover:-translate-y-[2px] hover:shadow-hover active:-translate-y-[0] active:shadow-md',
-    outline: 'border border-gold text-gold bg-transparent hover:bg-gold/15 hover:-translate-y-[2px] hover:shadow-hover active:-translate-y-[0] active:shadow',
-    ghost: 'text-gold hover:bg-gold/15 hover:-translate-y-[2px] hover:shadow-hover active:-translate-y-[0] active:shadow'
+    primary: 'bg-gold text-bg hover:bg-gold-light/90 hover:-translate-y-[2px] hover:shadow-hover active:translate-y-[0] active:shadow-md disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none',
+    secondary: 'bg-bg-light text-text-dark hover:bg-bg-mid/90 hover:text-white hover:-translate-y-[2px] hover:shadow-hover active:translate-y-[0] active:shadow-md disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none',
+    outline: 'border border-gold text-gold bg-transparent hover:bg-gold/15 hover:-translate-y-[2px] hover:shadow-hover active:translate-y-[0] active:shadow disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none',
+    ghost: 'text-gold hover:bg-gold/15 hover:-translate-y-[1px] hover:shadow-md active:translate-y-[0] active:shadow disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none'
   }
 
   const sizeClasses = {
@@ -35,6 +36,7 @@ export default function Button({
   return (
     <button
       className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${widthClass} ${className}`}
+      disabled={disabled}
       {...props}
     >
       {children}

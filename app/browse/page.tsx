@@ -52,7 +52,7 @@ export default function BrowsePage() {
       <AnnouncementBar />
       <Navbar />
 
-      <main className="min-h-screen bg-bg">
+      <main className="min-h-[100dvh] bg-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-8">
             <h1 className="font-serif text-4xl text-white mb-2 tracking-heading leading-heading">Browse Modest Fashion</h1>
@@ -79,7 +79,7 @@ export default function BrowsePage() {
 
               <div className="flex flex-wrap gap-4 ml-auto">
                 <div className="relative">
-                  <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="bg-bg border border-border text-white rounded-md px-4 py-2 pr-8 focus:outline-none focus:ring-2 focus:ring-gold appearance-none font-sans">
+                  <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="bg-bg border border-border text-white rounded-md px-4 py-2 pr-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold appearance-none font-sans">
                     <option>Price: Low to High</option>
                     <option>Price: High to Low</option>
                   </select>
@@ -87,7 +87,7 @@ export default function BrowsePage() {
                 </div>
 
                 <div className="relative">
-                  <select value={conditionFilter} onChange={(e) => setConditionFilter(e.target.value)} className="bg-bg border border-border text-white rounded-md px-4 py-2 pr-8 focus:outline-none focus:ring-2 focus:ring-gold appearance-none font-sans">
+                  <select value={conditionFilter} onChange={(e) => setConditionFilter(e.target.value)} className="bg-bg border border-border text-white rounded-md px-4 py-2 pr-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold appearance-none font-sans">
                     <option>Condition: All</option>
                     <option>New</option>
                     <option>Like New</option>
@@ -97,7 +97,7 @@ export default function BrowsePage() {
                 </div>
 
                 <div className="relative">
-                  <select value={sizeFilter} onChange={(e) => setSizeFilter(e.target.value)} className="bg-bg border border-border text-white rounded-md px-4 py-2 pr-8 focus:outline-none focus:ring-2 focus:ring-gold appearance-none font-sans">
+                  <select value={sizeFilter} onChange={(e) => setSizeFilter(e.target.value)} className="bg-bg border border-border text-white rounded-md px-4 py-2 pr-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold appearance-none font-sans">
                     <option>Size: All</option>
                     <option>XS</option>
                     <option>S</option>
@@ -120,20 +120,20 @@ export default function BrowsePage() {
                 <div>
                   <label className="block text-sm text-gold-light font-sans mb-2">Price Range</label>
                   <div className="flex gap-2">
-                    <input type="number" placeholder="Min" value={priceMin} onChange={(e) => setPriceMin(e.target.value)} className="w-full px-3 py-2 bg-bg border border-border rounded-md text-white font-sans text-sm focus:outline-none focus:ring-2 focus:ring-gold" />
-                    <input type="number" placeholder="Max" value={priceMax} onChange={(e) => setPriceMax(e.target.value)} className="w-full px-3 py-2 bg-bg border border-border rounded-md text-white font-sans text-sm focus:outline-none focus:ring-2 focus:ring-gold" />
+                    <input type="number" placeholder="Min" value={priceMin} onChange={(e) => setPriceMin(e.target.value)} className="w-full px-3 py-2 bg-bg border border-border rounded-md text-white font-sans text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold" />
+                    <input type="number" placeholder="Max" value={priceMax} onChange={(e) => setPriceMax(e.target.value)} className="w-full px-3 py-2 bg-bg border border-border rounded-md text-white font-sans text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold" />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm text-gold-light font-sans mb-2">Seller Location</label>
-                  <select value={locationFilter} onChange={(e) => setLocationFilter(e.target.value)} className="w-full px-3 py-2 bg-bg border border-border rounded-md text-white font-sans text-sm focus:outline-none focus:ring-2 focus:ring-gold">
+                  <select value={locationFilter} onChange={(e) => setLocationFilter(e.target.value)} className="w-full px-3 py-2 bg-bg border border-border rounded-md text-white font-sans text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
                     <option>United States</option>
                     <option>International</option>
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm text-gold-light font-sans mb-2">Shipping</label>
-                  <select value={shippingFilter} onChange={(e) => setShippingFilter(e.target.value)} className="w-full px-3 py-2 bg-bg border border-border rounded-md text-white font-sans text-sm focus:outline-none focus:ring-2 focus:ring-gold">
+                  <select value={shippingFilter} onChange={(e) => setShippingFilter(e.target.value)} className="w-full px-3 py-2 bg-bg border border-border rounded-md text-white font-sans text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
                     <option>Any</option>
                     <option>Free Shipping</option>
                     <option>Under $10</option>
@@ -148,7 +148,7 @@ export default function BrowsePage() {
             <div className="bg-bg-light rounded-lg overflow-hidden card-shadow hover:-translate-y-[2px] hover:shadow-hover transition-fluid duration-300">
               <div className="grid md:grid-cols-2">
                 <div className="aspect-square bg-bg-mid">
-                  <div className="w-full h-full bg-gradient-to-br from-gold/30 to-bg-light/30" />
+                  <div className="w-full h-full img-placeholder" />
                 </div>
                 <div className="p-8">
                   <div className="mb-4">

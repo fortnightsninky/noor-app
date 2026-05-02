@@ -46,11 +46,11 @@ export default function ProductCard({
   } as const
 
   return (
-    <Card hover perpetual padding="none" className={`overflow-hidden ${className}`}>
-      <Link href={`/listing/${id}`} className="block">
+    <Card hover padding="none" className={`overflow-hidden ${className}`}>
+      <Link href={`/listing/${id}`} className="block focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 rounded-md" aria-label={`${title}, $${price.toFixed(2)}, ${conditionLabels[condition]}`}>
         {/* Image */}
         <div className="relative aspect-square bg-bg-mid">
-          {images[0] && (
+          {images[0] ? (
             <Image
               src={images[0]}
               alt={title}
@@ -58,6 +58,8 @@ export default function ProductCard({
               className="object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
             />
+          ) : (
+            <div className="w-full h-full img-placeholder" aria-hidden="true" />
           )}
           {/* Wishlist button */}
           <button
@@ -65,7 +67,8 @@ export default function ProductCard({
               e.preventDefault()
               onWishlistToggle?.()
             }}
-            aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'} className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-white transition-colors"
+            aria-label={isWishlisted ? `Remove ${title} from wishlist` : `Add ${title} to wishlist`}
+            className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-white transition-fluid duration-300 focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2"
           >
             <Heart
               className={`h-5 w-5 ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-text-muted'}`}

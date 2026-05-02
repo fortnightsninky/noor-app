@@ -9,7 +9,7 @@ export default function TermsPage() {
       <AnnouncementBar />
       <Navbar />
 
-      <main className="min-h-screen bg-bg">
+      <main className="min-h-[100dvh] bg-bg">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <h1 className="font-serif text-5xl text-white mb-2 tracking-heading leading-heading">Terms of Service</h1>
           <p className="text-gold-light font-sans mb-12">Last updated: May 1, 2026</p>

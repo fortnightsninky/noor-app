@@ -27,11 +27,11 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   const [confirmState, setConfirmState] = useState<{ message: string; resolve: (value: boolean) => void } | null>(null)
 
   const toast = useCallback((message: string, type: ToastType = 'info') => {
-    const id = String(Date.now())
+    const id = String(Date.now() + Math.random())
     setToasts(prev => [...prev, { id, message, type }])
     setTimeout(() => {
       setToasts(prev => prev.filter(t => t.id !== id))
-    }, 3000)
+    }, 4000)
   }, [])
 
   const confirm = useCallback((message: string): Promise<boolean> => {
@@ -50,8 +50,8 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   }
 
   const icons = {
-    success: <CheckCircle className="h-5 w-5 text-green-500" />,
-    error: <AlertCircle className="h-5 w-5 text-red-500" />,
+    success: <CheckCircle className="h-5 w-5 text-green-600" />,
+    error: <AlertCircle className="h-5 w-5 text-red-600" />,
     info: <Info className="h-5 w-5 text-gold" />
   }
 
@@ -65,27 +65,29 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     <ToastContext.Provider value={{ toast, confirm }}>
       {children}
 
-      {/* Toast container */}
-      <div className="fixed bottom-4 right-4 z-[100] flex flex-col gap-2 max-w-sm">
+      <div className="fixed bottom-4 right-4 z-[100] flex flex-col gap-2 max-w-sm" role="region" aria-label="Notifications" aria-live="polite">
         {toasts.map(t => (
-          <div key={t.id} className={`flex items-center gap-3 px-4 py-3 rounded-md border shadow-lg animate-slide-up ${bgClasses[t.type]}`}>
+          <div
+            key={t.id}
+            className={`flex items-center gap-3 px-4 py-3 rounded-md border shadow-lg animate-slide-up ${bgClasses[t.type]}`}
+            role="alert"
+          >
             {icons[t.type]}
             <p className="text-sm text-text-dark font-sans flex-1">{t.message}</p>
-            <button onClick={() => removeToast(t.id)} aria-label="Dismiss" className="p-1 text-text-muted hover:text-text-dark">
+            <button onClick={() => removeToast(t.id)} aria-label="Dismiss notification" className="p-1 text-text-muted hover:text-text-dark transition-fluid duration-300">
               <X className="h-4 w-4" />
             </button>
           </div>
         ))}
       </div>
 
-      {/* Confirm dialog */}
       {confirmState && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50" onClick={() => handleConfirm(false)}>
-          <div className="bg-bg-light rounded-lg p-6 max-w-sm mx-4 shadow-xl" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 animate-fade-in" onClick={() => handleConfirm(false)} role="dialog" aria-modal="true" aria-label="Confirm action">
+          <div className="bg-bg-light rounded-lg p-6 max-w-sm mx-4 shadow-xl animate-slide-up" onClick={(e) => e.stopPropagation()}>
             <p className="font-sans text-text-dark mb-6">{confirmState.message}</p>
             <div className="flex gap-3 justify-end">
-              <button onClick={() => handleConfirm(false)} className="px-4 py-2 border border-border rounded-md text-text-dark font-sans hover:bg-bg-mid transition-fluid duration-300">Cancel</button>
-              <button onClick={() => handleConfirm(true)} className="px-4 py-2 bg-red-500 text-white rounded-md font-sans hover:bg-red-600 transition-fluid duration-300">Confirm</button>
+              <button onClick={() => handleConfirm(false)} className="px-4 py-2 border border-border rounded-md text-text-dark font-sans hover:bg-bg-mid transition-fluid duration-300 focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2">Cancel</button>
+              <button onClick={() => handleConfirm(true)} className="px-4 py-2 bg-red-500 text-white rounded-md font-sans hover:bg-red-600 transition-fluid duration-300 focus-visible:outline-2 focus-visible:outline-red-500 focus-visible:outline-offset-2">Confirm</button>
             </div>
           </div>
         </div>
